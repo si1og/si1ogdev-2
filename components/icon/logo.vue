@@ -1,33 +1,16 @@
 <template>
   <NuxtLink to="/" class="logo">
-    <div class="circle"></div>
-  </NuxtLink>
+		si1og
+	</NuxtLink>
 </template>
 
 <style scoped>
 .logo {
-  position: relative;
-  width: 48px;
-  height: 48px;
-
-  .circle {
-    position: absolute;
-    width: 48px;
-    aspect-ratio: 1;
-    background: var(--blue-background-color);
-    border-radius: 50%;
-
-    &::after {
-      position: absolute;
-      content: "";
-      top: 22px;
-      left: 24px;
-      width: 26px;
-      aspect-ratio: 1;
-      background: var(--main-component-color);
-      border-radius: inherit;
-      box-shadow: 0px 4px 4px #00000025;
-    }
-  }
+	padding: 2px 10px;
+	background: var(--text-color-1);
+	color: var(--bg-color-1);
+	border-radius: 30px;
+	font-style: italic;
+  font-variation-settings: "wght" 900, "ital" 0;
 }
 </style>

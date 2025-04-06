@@ -10,7 +10,7 @@ function isActive(path: string) {
 </script>
 
 <template>
-  <footer v-if="!isActive('/search')">
+  <footer>
     <div class="content">
       <IconLogo />
       <nav>

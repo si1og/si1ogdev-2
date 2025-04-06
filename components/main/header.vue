@@ -87,7 +87,7 @@ header {
   flex-direction: column;
   justify-items: center;
   width: 100%;
-  min-height: 70px;
+  min-height: 50px;
   background: var(--main-component-color);
 
   &>div {
@@ -98,7 +98,7 @@ header {
     width: 100%;
     max-width: var(--content-max-width);
     margin: 0 auto;
-    padding: 11px 42px;
+    padding: 0px 42px;
     box-sizing: border-box;
   }
 }
@@ -106,7 +106,7 @@ header {
 nav>ul {
   display: flex;
 	align-items: center;
-  gap: 40px;
+  gap: 35px;
   list-style: none;
   flex-wrap: wrap;
 
@@ -134,7 +134,7 @@ nav>ul {
   a {
     position: relative;
     transition: .2s ease;
-  }
+	}
 
   &.gap-80 {
     gap: 80px;
