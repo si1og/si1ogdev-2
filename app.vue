@@ -1,6 +1,7 @@
 <script setup>
 import { siteMetaData } from './data'
 import '~/assets/css/global.css'
+import '~/assets/css/animations.css'
 
 useHead({
   htmlAttrs: {
@@ -67,8 +68,8 @@ ol,
 button,
 input,
 textarea {
-  font-family: 'Jost', sans-serif;
-  color: var(--main-text-color);
+  font-family: 'Source Sans Variable', 'Source Sans Pro', sans-serif;
+  color: var(--text-color-1);
   text-decoration: none;
 }
 
@@ -88,4 +89,17 @@ textarea {
 * {
   box-sizing: border-box;
 }
+@font-face {
+  font-family: 'Source Sans Variable';
+  src: url('@/assets/fonts/SourceSans3VF-Upright.ttf') format('truetype-variations');
+  font-weight: 300 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Source Sans Variable';
+  src: url('@/assets/fonts/SourceSans3VF-Italic.ttf') format('truetype-variations');
+  font-weight: 300 900;
+  font-style: italic;
+}
+
 </style>

@@ -13,7 +13,6 @@ const setTheme = (value: string) => {
 
 const applyTheme = (value: string) => {
   const html = document.documentElement;
-	currentTheme.value = value;
 
   if (value === 'system') {
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -39,18 +38,10 @@ onMounted(() => {
 });
 
 
-const colorMode = useColorMode()
-function onClick(val: string) {
-  colorMode.preference = val
-}
-
 const route = useRoute()
 function isActive(path: string) {
   return route.path.startsWith(path)
 }
-
-// Default theme is light. Dark may be added in future
-onClick('light')
 </script>
 
 <template>
@@ -62,8 +53,8 @@ onClick('light')
       <IconLogo />
       <nav>
         <ul>
-          <li>
-            <NuxtLink to="gallery.si1ogdev.ru" :class="{ underline: isActive(`/${navbarData.gallery.rote}`) }"> {{
+          <li class="gallery">
+            <NuxtLink to="/gallery" :class="{ underline: isActive(`/${navbarData.gallery.rote}`) }"> {{
               navbarData.gallery.text }}
             </NuxtLink>
           </li>
@@ -77,7 +68,8 @@ onClick('light')
 						</button>
 						<div class="theme-switch__popover" id="theme-switch">
 							<button v-for="theme in themes" 
-							:class="['theme-switch__select-button', { active: theme.functionTrigger === currentTheme }]" @click="applyTheme(theme.functionTrigger)">
+							:class="['theme-switch__select-button', { active: theme.functionTrigger === currentTheme }]" 
+							@click="setTheme(theme.functionTrigger)">
 								<IconUse :id="theme.iconId" :width="20" :height="20" />
 								{{ theme.name }}
 							</button>
@@ -101,7 +93,7 @@ header {
   &>div {
     display: flex;
     justify-content: space-between;
-    align-content: center;
+    align-items: center;
     gap: 20px;
     width: 100%;
     max-width: var(--content-max-width);
@@ -113,37 +105,35 @@ header {
 
 nav>ul {
   display: flex;
+	align-items: center;
   gap: 40px;
   list-style: none;
   flex-wrap: wrap;
 
+	.gallery {
+		background: linear-gradient(60deg,coral,violet); 
+		background-clip: border-box;
+		-webkit-text-fill-color: transparent;
+		-webkit-background-clip: text;
+		font-variation-settings: "wght" 550, "ital" 0;
+
+		&:hover {
+			background-position: right center;
+			-webkit-text-fill-color: transparent;
+		}
+
+		a {
+			transition: .3s ease;
+			&:hover,
+			&:focus {
+				font-style: italic;
+				font-variation-settings: "wght" 800, "ital" 1;
+			}
+	}
+	}
   a {
     position: relative;
     transition: .2s ease;
-
-    &::after {
-      position: absolute;
-      left: 0;
-      bottom: 1px;
-      content: "";
-      width: 100%;
-      height: 1px;
-      background: var(--blue-background-color);
-      opacity: 0;
-      transform: translateY(3px);
-      transition: inherit;
-    }
-  }
-
-  a:not(.phone).underline,
-  a:not(.phone):hover,
-  a:not(.phone):focus {
-    color: var(--blue-text-color);
-
-    &::after {
-      opacity: 1;
-      transform: translateX(0);
-    }
   }
 
   &.gap-80 {
@@ -167,21 +157,6 @@ nav>ul {
   opacity: 1;
 }
 
-.phone {
-  --color: var(--blue-text-color);
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  cursor: pointer;
-
-  div {
-    color: var(--color);
-  }
-
-  svg {
-    fill: var(--color);
-  }
-}
 .theme-switch--conteiner {
 	position: relative;
 }
@@ -189,12 +164,10 @@ nav>ul {
   background: #f3f3f3;
   border: none;
   border-radius: 50%;
-  padding: 0.5rem;
-  font-size: 1.25rem;
+  padding: 0.3rem;
   cursor: pointer;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   transition: background 0.2s ease;
-	z-index: 9999;
 }
 
 .theme-switch:hover {

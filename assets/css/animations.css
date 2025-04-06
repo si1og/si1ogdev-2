@@ -1,0 +1,8 @@
+@keyframes italicShift {
+  from {
+    font-variation-settings: "wght" 550, "ital" 0;
+  }
+  to {
+    font-variation-settings: "wght" 750, "ital" 1;
+  }
+}
