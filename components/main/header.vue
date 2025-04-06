@@ -1,5 +1,43 @@
 <script setup lang="ts">
 import { navbarData } from '../../data'
+import { themes } from '~/data/themes'
+
+const currentTheme = ref('system');
+const buttonTheme = ref('');
+
+const setTheme = (value: string) => {
+  currentTheme.value = value;
+  localStorage.setItem('theme', value);
+  applyTheme(value);
+};
+
+const applyTheme = (value: string) => {
+  const html = document.documentElement;
+	currentTheme.value = value;
+
+  if (value === 'system') {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+		let userTheme = prefersDark ? 'dark' : 'light';
+    html.dataset.theme = userTheme;
+		buttonTheme.value = userTheme;
+  } else {
+    html.dataset.theme = value;
+		buttonTheme.value = value;
+  }
+};
+
+onMounted(() => {
+  const saved = localStorage.getItem('theme') || 'system';
+  currentTheme.value = saved;
+  applyTheme(saved);
+
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (currentTheme.value === 'system') {
+      applyTheme('system');
+    }
+  });
+});
+
 
 const colorMode = useColorMode()
 function onClick(val: string) {
@@ -25,27 +63,26 @@ onClick('light')
       <nav>
         <ul>
           <li>
-            <NuxtLink to="/" :class="{ underline: $route.path === '/' }"> {{ navbarData.home.text }} </NuxtLink>
-          </li>
-          <li>
-            <NuxtLink to="/about" :class="{ underline: isActive(`/${navbarData.about.rote}`) }"> {{
-              navbarData.about.text }} </NuxtLink>
-          </li>
-          <li>
-            <NuxtLink to="/contacts" :class="{ underline: isActive(`/${navbarData.contacts.rote}`) }"> {{
-              navbarData.contacts.text }}
+            <NuxtLink to="gallery.si1ogdev.ru" :class="{ underline: isActive(`/${navbarData.gallery.rote}`) }"> {{
+              navbarData.gallery.text }}
             </NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/search" :class="{ underline: isActive(`/${navbarData.search.rote}`) }"> {{
-              navbarData.search.text }} </NuxtLink>
+            <NuxtLink to="/projects" :class="{ underline: isActive(`/${navbarData.projects.rote}`) }"> {{
+              navbarData.projects.text }} </NuxtLink>
           </li>
-          <li>
-            <NuxtLink :to="'tel:+798788787'" class="phone">
-              <IconUse :id="'phone'" :width="14" :height="15" />
-              <div class="tel-text">+7 (987) 887-87</div>
-            </NuxtLink>
-          </li>
+					<li class="theme-switch--conteiner">
+						<button class="theme-switch">
+							<IconUse :id="`theme-${buttonTheme}`" :width="20" :height="20" />
+						</button>
+						<div class="theme-switch__popover" id="theme-switch">
+							<button v-for="theme in themes" 
+							:class="['theme-switch__select-button', { active: theme.functionTrigger === currentTheme }]" @click="applyTheme(theme.functionTrigger)">
+								<IconUse :id="theme.iconId" :width="20" :height="20" />
+								{{ theme.name }}
+							</button>
+						</div>
+					</li>
         </ul>
       </nav>
     </div>
@@ -144,5 +181,74 @@ nav>ul {
   svg {
     fill: var(--color);
   }
+}
+.theme-switch--conteiner {
+	position: relative;
+}
+.theme-switch {
+  background: #f3f3f3;
+  border: none;
+  border-radius: 50%;
+  padding: 0.5rem;
+  font-size: 1.25rem;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: background 0.2s ease;
+	z-index: 9999;
+}
+
+.theme-switch:hover {
+  background: #e6e6e6;
+}
+
+.theme-switch__popover {
+	position: absolute;
+	right: 0;
+	top: 36px;
+  display: flex;
+  flex-direction: column;
+  min-width: 120px;
+  gap: 0.25rem;
+  padding: 0.5rem 0;
+  border: none;
+  border-radius: 1rem;
+  background: white;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  opacity: 0;
+  transform: scale(0.95); /* центрирование + уменьшение */
+  transform-origin: top center;
+  pointer-events: none;
+	z-index: 1;
+}
+
+.theme-switch:hover ~ .theme-switch__popover,
+.theme-switch__popover:hover,
+.theme-switch__popover:has(button:focus) {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+.theme-switch__select-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  width: 100%;
+  padding: 0.2rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transition: background 0.2s ease;
+}
+
+.theme-switch__select-button:hover {
+  background: #f0f0f0;
+}
+
+.theme-switch__select-button.active {
+  background: #e5e5e5;
+  font-weight: 500;
 }
 </style>

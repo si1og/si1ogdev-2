@@ -16,14 +16,18 @@ export const navbarData = {
     text: 'Поиск',
     rote: 'search',
   },
-  gallery: {
-    text: 'Галерея',
-    rote: 'gallery',
-  },
   news: {
     text: 'Новости',
     rote: 'news',
   },
+	gallery: {
+    text: 'Gallery',
+    rote: 'gallery',
+  },
+  projects: {
+    text: 'Projects',
+    rote: 'projects',
+  }
 }
 
 export const contactsData = {

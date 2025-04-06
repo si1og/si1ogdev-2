@@ -7,7 +7,7 @@ useHead({
     {
       name: 'description',
       content:
-        'Добро пожаловать на наш блог!',
+        'My website',
     },
   ],
 })
@@ -23,7 +23,6 @@ useHead({
 
 <template>
   <main class="main" id="main">
-    <IndexCover />
   </main>
 </template>
 
