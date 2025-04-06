@@ -51,7 +51,7 @@ html.dark {
 }
 
 body {
-  background: var(--background);
+  background: var(--bg-color-2);
   margin: 0;
 }
 
@@ -70,7 +70,6 @@ input,
 textarea {
   font-family: 'Source Sans Variable', 'Source Sans Pro', sans-serif;
   color: var(--text-color-1);
-  text-decoration: none;
 }
 
 a,
@@ -84,6 +83,17 @@ textarea {
   &:focus-visible {
     outline: 2px solid var(--blue-text-color);
   }
+}
+
+a {
+	text-decoration-color: 
+    color-mix(in srgb, currentColor, transparent 75%);
+	text-underline-offset: 2px;
+}
+a:hover,
+a:focus {
+	text-decoration-color: color-mix(in srgb, currentColor, transparent 20%);
+	color: var(--text-color-5);
 }
 
 * {

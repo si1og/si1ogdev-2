@@ -88,7 +88,8 @@ header {
   justify-items: center;
   width: 100%;
   min-height: 50px;
-  background: var(--main-component-color);
+  background: var(--bg-color-1);
+	box-shadow: 0 0 12px #00000009;
 
   &>div {
     display: flex;
@@ -124,6 +125,7 @@ nav>ul {
 
 		a {
 			transition: .3s ease;
+			text-decoration: none;
 			&:hover,
 			&:focus {
 				font-style: italic;

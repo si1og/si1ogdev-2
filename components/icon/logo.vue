@@ -12,5 +12,6 @@
 	border-radius: 30px;
 	font-style: italic;
   font-variation-settings: "wght" 900, "ital" 0;
+	text-decoration: none;
 }
 </style>

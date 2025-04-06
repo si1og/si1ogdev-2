@@ -14,32 +14,17 @@ function isActive(path: string) {
     <div class="content">
       <IconLogo />
       <nav>
-        <ul class="gap-80">
+        <ul>
           <li>
             <NuxtLink :to="`/${navbarData.about.rote}`" :class="{ underline: isActive(`/${navbarData.about.rote}`) }">
               {{
                 navbarData.about.text }} </NuxtLink>
           </li>
-          <li>
-            <NuxtLink :to="`/${navbarData.gallery.rote}`"
-              :class="{ underline: isActive(`/${navbarData.gallery.rote}`) }"> {{
-                navbarData.gallery.text }}
-            </NuxtLink>
-          </li>
-          <li>
-            <NuxtLink :to="`/${navbarData.news.rote}`" :class="{ underline: isActive(`/${navbarData.news.rote}`) }"> {{
-              navbarData.news.text }} </NuxtLink>
-          </li>
-          <li>
-            <NuxtLink :to="`/${navbarData.search.rote}`" :class="{ underline: isActive(`/${navbarData.search.rote}`) }">
-              {{
-                navbarData.search.text }} </NuxtLink>
-          </li>
         </ul>
       </nav>
-      <p class="credits">
-        ООО “Организация” 2020. Все права защищены
-      </p>
+			<NuxtLink to="https://github.com/si1og/si1ogdev-2"> 
+				Handcrafted by me
+			</NuxtLink>
     </div>
   </footer>
 </template>
@@ -47,32 +32,23 @@ function isActive(path: string) {
 <style scoped>
 footer {
   width: 100%;
-  background: var(--footer-background-color);
+  background: var(--bg-color-1);
+	box-shadow: 0 0 12px #00000009;
 
   &>div {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
+    gap: 15px;
     max-width: var(--content-max-width);
     margin: 0 auto;
-    padding: 40px var(--page-padding);
-  }
-
-  &.hide {
-    opacity: 0;
-    transform: translateY(-10px);
-    pointer-events: none;
+    padding: 20px var(--page-padding);
   }
 }
 
 ul {
   margin: 0;
   padding: 0;
-}
-
-.credits {
-  margin: 24px 0 0 0;
 }
 
 /* we will explain what these classes do next! */
