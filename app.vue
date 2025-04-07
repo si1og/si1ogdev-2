@@ -21,6 +21,10 @@ useHead({
 </template>
 
 <style>
+* {
+  box-sizing: border-box;
+}
+
 .page-enter-active,
 .page-leave-active {
   transition: all 0.12s ease;
@@ -96,9 +100,6 @@ a:focus {
 	color: var(--text-color-5);
 }
 
-* {
-  box-sizing: border-box;
-}
 @font-face {
   font-family: 'Source Sans Variable';
   src: url('@/assets/fonts/SourceSans3VF-Upright.ttf') format('truetype-variations');

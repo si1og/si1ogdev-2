@@ -67,4 +67,8 @@ export default defineNuxtConfig({
       theme: 'dracula',
     },
   },
+
+  devtools: {
+    enabled: true,
+  },
 })
