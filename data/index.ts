@@ -30,6 +30,45 @@ export const navbarData = {
   }
 }
 
+export const socialLinks = [
+  {
+    name: 'Github',
+    icon: 'github-icon',
+    link: '#',
+    sizes: [20,20]
+  },
+  {
+    name: 'Telegram',
+    icon: 'telegram-icon',
+    link: '#',
+    sizes: [20,20]
+  },
+  {
+    name: 'Instagram',
+    icon: 'instagram-icon',
+    link: '#',
+    sizes: [18,18]
+  },
+  {
+    name: 'Unsplush',
+    icon: 'unsplush-icon',
+    link: '#',
+    sizes: [15,15]
+  },
+  {
+    name: 'Mastodon',
+    icon: 'mastodon-icon',
+    link: '#',
+    sizes: [21,21]
+  },
+  {
+    name: 'Bluesky',
+    icon: 'bluesky-icon',
+    link: '#',
+    sizes: [20,20]
+  },
+]
+
 export const contactsData = {
   textLinks: [
     {
@@ -101,12 +140,12 @@ export const seoData = {
   mailAddress: 'asadnurriyad@gmail.com',
 }
 
-export const socialLinks = {
-  githubLink: 'https://github.com/nurRiyad',
-  linkedinLink: 'https://www.linkedin.com/in/nur-riyad/',
-  twitterLink: 'https://twitter.com/qdnvubp',
-  stackoverflowLink: 'https://stackoverflow.com/users/16781395/nur-riyad',
-}
+// export const socialLinks = {
+//   githubLink: 'https://github.com/nurRiyad',
+//   linkedinLink: 'https://www.linkedin.com/in/nur-riyad/',
+//   twitterLink: 'https://twitter.com/qdnvubp',
+//   stackoverflowLink: 'https://stackoverflow.com/users/16781395/nur-riyad',
+// }
 
 export const siteMetaData = [
   {

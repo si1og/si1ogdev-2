@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { navbarData } from '../../data'
+import { navbarData, socialLinks } from '../../data'
 
 const route = useRoute()
 
@@ -10,15 +10,15 @@ function isActive(path: string) {
 </script>
 
 <template>
-  <footer>
+  <footer class="footer">
     <div class="content">
       <IconLogo />
       <nav>
         <ul>
-          <li>
-            <NuxtLink :to="`/${navbarData.about.rote}`" :class="{ underline: isActive(`/${navbarData.about.rote}`) }">
-              {{
-                navbarData.about.text }} </NuxtLink>
+          <li v-for="social in socialLinks" :class="social.icon">
+            <NuxtLink :to="`${social.link}`">
+              <IconUse :id="social.icon" :width="social.sizes[0]" :height="social.sizes[1]" />
+            </NuxtLink>
           </li>
         </ul>
       </nav>
@@ -30,7 +30,7 @@ function isActive(path: string) {
 </template>
 
 <style scoped>
-footer {
+.footer {
   width: 100%;
   background: var(--bg-color-1);
 	box-shadow: 0 0 12px #00000009;
@@ -44,12 +44,21 @@ footer {
     margin: 0 auto;
     padding: 20px var(--page-padding);
   }
+  ul {
+    margin: 0;
+    padding: 0;
+    li {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 30px;
+      height: 30px;
+      background: var(--text-color-1);
+      border-radius: 50%;
+    }
+  }
 }
 
-ul {
-  margin: 0;
-  padding: 0;
-}
 
 /* we will explain what these classes do next! */
 .v-enter-active,
@@ -62,4 +71,10 @@ ul {
   opacity: 0;
   filter: blur(1rem);
 }
+</style>
+
+<style>
+  .footer svg {
+    fill: var(--bg-color-1);
+  }
 </style>
