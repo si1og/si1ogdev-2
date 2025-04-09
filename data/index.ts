@@ -105,10 +105,36 @@ export const footerData = {
 }
 
 export const homePage = {
-  title: 'Welcome To My Blog Site',
+  name: 'Ilya Semenov',
+  nameSubtitle: 'Computer programmer and photo enthusiast',
+  title: 'Hi there!',
   description:
-    'Get Web Development, Javascript, Typescript, NodeJs, Vue, and Nuxt, Related Articles, Tips, Learning resources and more.',
+    'I\'m Ilya Semenov, an computer scince student and photo enthusiast at SPbPU. You can see some of my past works over here. Feel free to check them out. ',
 }
+
+export const homePageSocial = [
+  {
+    name: 'Github',
+    icon: 'github-icon',
+    link: '#',
+    tooltip: 'si1og',
+    sizes: [20,20]
+  },
+  {
+    name: 'Discord',
+    icon: 'discord-icon',
+    link: 'copy-type',
+    tooltip: '@si1og',
+    sizes: [20,20]
+  },
+  {
+    name: 'Mail',
+    icon: 'mail-icon',
+    link: 'copy-type',
+    tooltip: 'hi@si1og.ru',
+    sizes: [20,20]
+  }
+]
 
 export const blogsPage = {
   title: 'All Blogs',

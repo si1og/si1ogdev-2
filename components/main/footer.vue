@@ -47,7 +47,7 @@ function isActive(path: string) {
   ul {
     margin: 0;
     padding: 0;
-    li {
+    a {
       display: flex;
       justify-content: center;
       align-items: center;
