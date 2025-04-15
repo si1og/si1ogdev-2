@@ -23,6 +23,7 @@ useHead({
 
 <template>
   <main class="main" id="main">
+    <MainHero />
   </main>
 </template>
 

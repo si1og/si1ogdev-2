@@ -34,37 +34,37 @@ export const socialLinks = [
   {
     name: 'Github',
     icon: 'github-icon',
-    link: '#',
+    link: 'https://github.com/si1og',
     sizes: [20,20]
   },
   {
     name: 'Telegram',
     icon: 'telegram-icon',
-    link: '#',
+    link: 'https://t.me/si1og',
     sizes: [20,20]
   },
   {
     name: 'Instagram',
     icon: 'instagram-icon',
-    link: '#',
+    link: 'https://instagram.com/ia.semenov',
     sizes: [18,18]
   },
   {
     name: 'Unsplush',
     icon: 'unsplush-icon',
-    link: '#',
+    link: 'https://unsplash.com/@si1og',
     sizes: [15,15]
   },
   {
     name: 'Mastodon',
     icon: 'mastodon-icon',
-    link: '#',
+    link: 'https://mastodon.social/@si1og',
     sizes: [21,21]
   },
   {
     name: 'Bluesky',
     icon: 'bluesky-icon',
-    link: '#',
+    link: 'https://bsky.app/profile/si1og.bsky.social',
     sizes: [20,20]
   },
 ]

@@ -1,23 +1,27 @@
 <script setup lang="ts">
 import { homePage } from '~/data'
+import { homePageSocial } from '~/data'
+
+
 </script>
 
 <template>
-  <div class="container mx-auto">
-    <div class="grid grid-cols-1 sm:grid-cols-2 items-center">
-      <div class="px-6">
-        <h1
-          class="text-black dark:text-zinc-300 font-semibold leading-tight text-4xl md:text-5xl my-5"
-        >
-          {{ homePage.title }}
-        </h1>
-        <p class="dark:text-zinc-300">
-          {{ homePage.description }}
-        </p>
+  <div class="main-content">
+    <div class="main-content__title">
+      <h1>{{ homePage.name }}</h1>
+      <p>{{ homePage.nameSubtitle }}</p>
+    </div>
+    <div class="description">
+      <div class="description__info">
+        <h2>{{ homePage.title }}</h2>
+        <p>{{ homePage.description }}</p>
+        <ul class="description__connect">
+          <li v-for="item in homePageSocial">
+            
+          </li>
+        </ul>
       </div>
-      <div class="px-6 justify-self-center">
-        <LogoDog />
-      </div>
+      <div class="description__icon"></div>
     </div>
   </div>
 </template>
