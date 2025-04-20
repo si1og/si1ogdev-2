@@ -1,6 +1,10 @@
 <script setup lang="ts">
 const router = useRouter()
 
+definePageMeta({
+  layout: 'empty'
+})
+
 useHead({
   title: 'Страница не найдена',
   meta: [
@@ -16,11 +20,14 @@ useHead({
 <template>
   <div class="p404">
     <div class="p404__content">
-      <NuxtImg alt="Страница не найдена" src="/msg/404.png" />
-      <h3>Что-то пошло не так...</h3>
+      <div class="p404__info">
+        <h1>Page not found</h1>
+        <p>Hmm, the page you were looking for doesn’t seem to exist anymore.</p>
+        <SvgBackgroundGrid class="p404__grid" />
+      </div>
       <button @click="$router.back()">
         <IconUse :id="'next'" :width="6" :height="11" />
-        Вернуться назад
+        Back to main page
       </button>
     </div>
   </div>
@@ -30,33 +37,43 @@ useHead({
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100vh;
   width: 100%;
-  height: 100%;
   padding: 40px 30px;
 }
 
+.p404__info {
+  position: relative;
+  width: 100%;
+}
+.p404__grid {
+  top: 0;
+  position: absolute;
+  pointer-events: none;
+}
 .p404__content {
   display: flex;
   flex-direction: column;
-  gap: 40px;
   align-items: center;
+  width: 100%;
 
-  h3,
-  img {
-    margin: 0;
+  h1 {
+    margin: 27px 0 0 0;
+    font-size: 50px;
+    font-family: 'Vollkorn';
+    text-align: center;
   }
 
-  h3 {
-    font-size: 30px;
-  }
+  p {
+    margin: 5px 0 30px 0;
+    font-family: 'Vollkorn';
+    font-style: italic;
+    text-align: center;
 
-  img {
-    width: 326px;
-    height: 326px;
   }
 
   button {
-    --color: var(--blue-text-color);
+    --color: var(--text-color-1);
 
     display: inline-flex;
     gap: 8px;
