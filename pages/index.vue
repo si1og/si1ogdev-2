@@ -22,9 +22,5 @@ useHead({
 </script>
 
 <template>
-  <main class="main" id="main">
-    <MainHero />
-  </main>
+  <MainHero />
 </template>
-
-<style></style>

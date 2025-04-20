@@ -14,7 +14,7 @@
 <style scoped>
 .main {
   width: 100%;
-  max-width: 1920px;
+  max-width: var(--content-max-width);
   padding: 0 42px;
 }
 
