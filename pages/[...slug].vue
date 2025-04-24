@@ -25,10 +25,10 @@ useHead({
         <p>Hmm, the page you were looking for doesn’t seem to exist anymore.</p>
         <SvgBackgroundGrid class="p404__grid" />
       </div>
-      <button @click="$router.back()">
+      <NuxtLink to="/">
         <IconUse :id="'next'" :width="6" :height="11" />
         Back to main page
-      </button>
+      </NuxtLink>
     </div>
   </div>
 </template>
@@ -50,6 +50,7 @@ useHead({
   top: 0;
   position: absolute;
   pointer-events: none;
+  opacity: .5;
 }
 .p404__content {
   display: flex;
@@ -72,16 +73,18 @@ useHead({
 
   }
 
-  button {
+  a {
     --color: var(--text-color-1);
 
     display: inline-flex;
     gap: 8px;
     padding: 10px 16px;
     border: 0;
-    border-radius: 8px;
-    background: var(--non-active-button-color);
+    border-radius: 30px;
+    background: var(--bg-color-1);
     color: var(--color);
+    box-shadow: 0 0 6px #00000014;
+    text-decoration: none;
 
     svg {
       fill: var(--color);
@@ -90,7 +93,8 @@ useHead({
     &:hover,
     &:focus {
       cursor: pointer;
-      background: var(--button-hover-color);
+      transform: translateY(-3px);
+      box-shadow: 0 2px 8px #0000001d;
     }
 
     &:active {
