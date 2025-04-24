@@ -157,10 +157,12 @@ function copyToClipboard(text: string, id: string) {
   top: -40px;
   left: 50%;
   display: flex;
+  align-items: center;
   gap: 2px;
   padding: 5px 10px;
   border-radius: 20px;
   box-shadow: 0 0 10px #00000018;
+  white-space: nowrap;
   background: var(--text-color-1);
   color: var(--bg-color-1);
   transform: translate(-50%, 3px) scale(.9);
@@ -168,12 +170,7 @@ function copyToClipboard(text: string, id: string) {
   opacity: 0;
   pointer-events: none;
   visibility: hidden;
-  &>.copy-icon {
-    position: relative;
-    top: 2px;
-  }
   &.ex-link {
-    /* gap: 4px; */
     svg {
       stroke: var(--bg-color-1);
     }

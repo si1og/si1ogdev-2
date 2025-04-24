@@ -18,6 +18,12 @@ function isActive(path: string) {
           <li v-for="social in socialLinks" :class="social.icon">
             <NuxtLink :to="`${social.link}`">
               <IconUse :id="social.icon" :width="social.sizes[0]" :height="social.sizes[1]" />
+              <span class="tooltip ex-link">
+                <span class="copy-icon">
+                  <IconUse id="external-link" :width="20" :height="20" />
+                </span>
+                {{ social.tooltip }}
+              </span>
             </NuxtLink>
           </li>
         </ul>
