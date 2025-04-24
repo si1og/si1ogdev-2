@@ -174,7 +174,11 @@ import { homePageSocial } from '~/data'
       pointer-events: all !important;
       visibility: visible !important;
       transform: translate(-50%, 0) scale(1) !important;
+      z-index: inherit;
     }
+  }
+  &:hover {
+    z-index: 10;
   }
 }
 </style>
