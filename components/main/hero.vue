@@ -2,7 +2,17 @@
 import { homePage } from '~/data'
 import { homePageSocial } from '~/data'
 
+const copiedId = ref<string | null>(null)
 
+function copyToClipboard(text: string, id: string) {
+  navigator.clipboard.writeText(text).then(() => {
+    copiedId.value = id
+    
+    setTimeout(() => {
+      if (copiedId.value === id) copiedId.value = null
+    }, 1500)
+  })
+}
 </script>
 
 <template>
@@ -18,17 +28,26 @@ import { homePageSocial } from '~/data'
         <p>{{ homePage.description }}</p>
         <ul class="description__connect" style="margin: 10px 0 0 0;">
           <li v-for="item in homePageSocial">
-            <button v-if="item.link === 'copy-type'" class="copy" :data-copy="item.tooltip">
+            <button v-if="item.link === 'copy-type'" class="copy" @click="copyToClipboard(item.tooltip, item.icon)">
               <IconUse :id="item.icon" :width="item.sizes[0]" :height="item.sizes[1]" />
-              <span class="tooltip">
+              <span v-if="copiedId !== item.icon" class="tooltip">
                 <span class="copy-icon">
                   <IconUse id="copy" :width="20" :height="20" />
                 </span>
                 {{ item.tooltip }}
               </span>
+              <span v-else class="tooltip">
+                Copied!
+              </span>
             </button>
             <NuxtLink v-else :to="`${item.link}`">
               <IconUse :id="item.icon" :width="item.sizes[0]" :height="item.sizes[1]" />
+              <span class="tooltip ex-link">
+                <span class="copy-icon">
+                  <IconUse id="external-link" :width="20" :height="20" />
+                </span>
+                {{ item.tooltip }}
+              </span>
             </NuxtLink>
           </li>
         </ul>
@@ -105,6 +124,7 @@ import { homePageSocial } from '~/data'
       background: none;
     }
     a {
+      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -123,9 +143,6 @@ import { homePageSocial } from '~/data'
       border: none;
       border-radius: 50%;
       background: var(--text-color-1);
-      &>span {
-        position: absolute;
-      }
     }
   }
 }
@@ -136,6 +153,7 @@ import { homePageSocial } from '~/data'
   fill: var(--bg-color-1);
 }
 .tooltip {
+  position: absolute;
   top: -40px;
   left: 50%;
   display: flex;
@@ -154,6 +172,12 @@ import { homePageSocial } from '~/data'
     position: relative;
     top: 2px;
   }
+  &.ex-link {
+    /* gap: 4px; */
+    svg {
+      stroke: var(--bg-color-1);
+    }
+  }
   &::after {
     content: "";
     position: absolute;
@@ -165,7 +189,7 @@ import { homePageSocial } from '~/data'
     border-color: var(--text-color-1) transparent transparent transparent;
   }
 }
-.description__info button {
+button, a {
   &:hover,
   &:focus {
     cursor: pointer;
