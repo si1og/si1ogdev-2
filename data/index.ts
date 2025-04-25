@@ -45,13 +45,13 @@ export const socialLinks = [
     tooltip: 'si1og',
     sizes: [20,20]
   },
-  {
-    name: 'Instagram',
-    icon: 'instagram-icon',
-    link: 'https://instagram.com/ia.semenov',
-    tooltip: 'ia.semenov',
-    sizes: [18,18]
-  },
+  // {
+  //   name: 'Instagram',
+  //   icon: 'instagram-icon',
+  //   link: 'https://instagram.com/ia.semenov',
+  //   tooltip: 'ia.semenov',
+  //   sizes: [18,18]
+  // },
   {
     name: 'Unsplush',
     icon: 'unsplush-icon',

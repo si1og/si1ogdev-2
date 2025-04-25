@@ -85,7 +85,7 @@ textarea {
   font-size: 18px;
 
   &:focus-visible {
-    outline: 2px solid var(--blue-text-color);
+    outline: 2px solid color-mix(in srgb, lightblue, blue);
   }
 }
 

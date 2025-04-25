@@ -47,7 +47,7 @@ function isActive(path: string) {
 <template>
   <header>
     <NuxtLink to="#main" class="skip-nav">
-      Перейти к основному контенту
+      Skip to main content
     </NuxtLink>
     <div class="split">
       <IconLogo />
@@ -83,6 +83,8 @@ function isActive(path: string) {
 </template>
 <style>
 header {
+  position: sticky;
+  top: 0;
   display: flex;
   flex-direction: column;
   justify-items: center;
@@ -90,6 +92,7 @@ header {
   min-height: 50px;
   background: var(--bg-color-1);
 	box-shadow: 0 0 12px #00000009;
+  z-index: 10;
 
   &>div {
     display: flex;
@@ -146,12 +149,13 @@ nav>ul {
 .skip-nav {
   position: absolute;
   width: 100%;
-  background: var(--blue-background-color);
-  color: var(--img-text-color);
+  background: var(--text-color-1);
+  color: var(--bg-color-1) !important;
   text-align: center;
-  padding: 2px 11px;
+  padding: 5px 11px;
   opacity: 0;
-  outline: none;
+  outline: none !important;
+  text-decoration: none;
 }
 
 .skip-nav:focus-visible {
@@ -163,41 +167,54 @@ nav>ul {
 	position: relative;
 }
 .theme-switch {
-  background: #f3f3f3;
   border: none;
   border-radius: 50%;
   padding: 0.3rem;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  background: none;
   transition: background 0.2s ease;
+  svg {
+    fill: var(--text-color-1);
+  }
 }
 
-.theme-switch:hover {
-  background: #e6e6e6;
+.theme-switch:hover,
+.theme-switch--conteiner:has(button:focus) .theme-switch,
+.theme-switch--conteiner:has(.theme-switch__popover:hover) .theme-switch {
+  background: var(--bg-color-12);
 }
 
 .theme-switch__popover {
 	position: absolute;
 	right: 0;
-	top: 36px;
+	top: 30px;
   display: flex;
   flex-direction: column;
   min-width: 120px;
-  gap: 0.25rem;
   padding: 0.5rem 0;
   border: none;
   border-radius: 1rem;
-  background: white;
+  background: var(--bg-color-1);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   transition: opacity 0.2s ease, transform 0.2s ease;
   opacity: 0;
-  transform: scale(0.95); /* центрирование + уменьшение */
+  transform: scale(0.95);
   transform-origin: top center;
   pointer-events: none;
 	z-index: 1;
 }
 
+.theme-switch__popover::before {
+  position: absolute;
+  left: 0;
+  top: -30px;
+  content: "";
+  width: calc(100% - 20px);
+  height: 30px;
+}
+
 .theme-switch:hover ~ .theme-switch__popover,
+.theme-switch:focus ~ .theme-switch__popover,
 .theme-switch__popover:hover,
 .theme-switch__popover:has(button:focus) {
   opacity: 1;
@@ -216,14 +233,17 @@ nav>ul {
   cursor: pointer;
   border-radius: 0.5rem;
   transition: background 0.2s ease;
+  svg {
+    fill: var(--text-color-1)
+  }
 }
 
 .theme-switch__select-button:hover {
-  background: #f0f0f0;
+  background: var(--bg-color-12);
 }
 
 .theme-switch__select-button.active {
-  background: #e5e5e5;
+  background: var(--bg-color-12);
   font-weight: 500;
 }
 </style>
