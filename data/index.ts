@@ -53,8 +53,8 @@ export const socialLinks = [
   //   sizes: [18,18]
   // },
   {
-    name: 'Unsplush',
-    icon: 'unsplush-icon',
+    name: 'Unsplash',
+    icon: 'unsplash-icon',
     link: 'https://unsplash.com/@si1og',
     tooltip: '@si1og',
     sizes: [15,15]
@@ -83,8 +83,8 @@ export const findMyPhotosIn = [
     sizes: [25,25]
   },
   {
-    name: 'Unsplush',
-    icon: 'unsplush-icon',
+    name: 'Unsplash',
+    icon: 'unsplash-icon',
     link: 'https://unsplash.com/@si1og',
     sizes: [16,16]
   }

@@ -176,15 +176,6 @@ function copyToClipboard(text: string, id: string) {
       gap: 2px;
       padding: 10px;
       border-radius: 15px;
-      span {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-        border: 1px solid var(--text-color-1);
-      }
       &:hover,
       &:focus {
         background: var(--bg-color-12);
@@ -195,6 +186,15 @@ function copyToClipboard(text: string, id: string) {
 </style>
 
 <style>
+.description__photo-social .icon-cont {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 1px solid var(--text-color-1);
+}
 .description__info svg {
   fill: var(--bg-color-1);
 }
