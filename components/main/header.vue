@@ -156,6 +156,7 @@ nav>ul {
   opacity: 0;
   outline: none !important;
   text-decoration: none;
+  pointer-events: none;
 }
 
 .skip-nav:focus-visible {

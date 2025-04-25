@@ -80,19 +80,13 @@ export const findMyPhotosIn = [
     name: 'Telegram',
     icon: 'telegram-icon',
     link: 'https://t.me/si1og_phograhpy',
-    sizes: [30,30]
-  },
-  {
-    name: 'Instagram',
-    icon: 'instagram-icon',
-    link: 'https://instagram.com/ia.semenov',
-    sizes: [30,30]
+    sizes: [25,25]
   },
   {
     name: 'Unsplush',
     icon: 'unsplush-icon',
     link: 'https://unsplash.com/@si1og',
-    sizes: [30,30]
+    sizes: [16,16]
   }
 ]
 
