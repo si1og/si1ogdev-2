@@ -1,19 +1,30 @@
-import { defineEventHandler } from 'h3'
+import { defineEventHandler, getQuery } from 'h3'
 import { $fetch } from 'ofetch'
 
-export default defineEventHandler(async () => {
+export default defineEventHandler(async (event) => {
   const accessKey = process.env.UNSPLASH_ACCESS_KEY
   const username = process.env.UNSPLASH_USERNAME
 
-  const res = await $fetch(`https://api.unsplash.com/users/${username}/photos`, {
+  const query = getQuery(event)
+  const page = query.page ? Number(query.page) : 1
+  const perPage = 30
+
+  const res = await $fetch<any[]>(`https://api.unsplash.com/users/${username}/photos`, {
     params: {
-      per_page: 30,
-      order_by: 'latest'
+      per_page: perPage,
+      page,
+      order_by: 'latest',
     },
     headers: {
       Authorization: `Client-ID ${accessKey}`
     }
   })
 
-  return res
+  // Добавляем orientation к каждому фото
+  const photos = res.map(photo => ({
+    ...photo,
+    orientation: photo.width > photo.height ? 'landscape' : 'portrait'
+  }))
+
+  return photos
 })

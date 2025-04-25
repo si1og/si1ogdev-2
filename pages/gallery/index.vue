@@ -1,49 +1,75 @@
 <script setup lang="ts">
 import type { Photo } from '~/types/photo'
 
-const { data: photos } = await useFetch<Photo[]>('/api/photos')
+const page = ref(1)
+const photos = ref<Photo[]>([])
+const isLoading = ref(false)
+const isEndReached = ref(false)
 
-const groupedByYear = computed(() => {
-  if (!photos.value) return {}
-  return photos.value.reduce((acc: Record<string, Photo[]>, photo) => {
-    const year = new Date(photo.created_at).getFullYear()
-    if (!acc[year]) acc[year] = []
-    acc[year].push(photo)
-    return acc
-  }, {})
+async function fetchPhotos() {
+  isLoading.value = true
+
+  const { data } = await useLazyFetch<Photo[]>('/api/photos', {
+  query: { page: page.value },
+  default: () => []
 })
 
-onMounted(() => {
-  const hash = window.location.hash
-  if (hash) {
-    const el = document.getElementById(hash.slice(1))
-    if (el) {
-      setTimeout(() => {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      }, 300)
-    }
+  if (data.value && data.value.length > 0) {
+    photos.value.push(...data.value)
+  } else {
+    isEndReached.value = true
   }
+
+  isLoading.value = false
+}
+
+
+// Загружаем первую страницу
+await fetchPhotos()
+
+const observer = ref<IntersectionObserver>()
+
+onMounted(() => {
+  const sentinel = document.getElementById('scroll-sentinel')
+  if (sentinel) {
+    observer.value = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && !isLoading.value && !isEndReached.value) {
+        page.value++
+        fetchPhotos()
+      }
+    })
+    observer.value.observe(sentinel)
+  }
+})
+
+onBeforeUnmount(() => {
+  observer.value?.disconnect()
 })
 </script>
 
 <template>
   <div class="gallery-wrapper">
-    <div
-      v-for="(images, year) in groupedByYear"
-      :key="year"
-      class="year-section"
-      :id="year.toString()"
-    >
-      <h2>{{ year }}</h2>
-      <div class="image-grid">
-        <GalleryImage
-          v-for="(photo, index) in images"
-          :key="photo.id"
-          :src="photo.urls.small"
-          :alt="photo.alt_description"
-          :index="index"
-        />
-      </div>
+    <div class="image-grid">
+      <GalleryImage
+        v-for="photo in photos"
+        :key="photo.id"
+        :src="photo.urls.small"
+        :alt="photo.alt_description"
+        :orientation="photo.orientation"
+      />
+    </div>
+
+    <!-- Страж -->
+    <div id="scroll-sentinel"></div>
+
+    <!-- Спиннер -->
+    <div v-if="isLoading" class="spinner">
+      Loading...
+    </div>
+
+    <!-- Сообщение о завершении -->
+    <div v-else-if="isEndReached" class="end-message">
+      No more photos.
     </div>
   </div>
 </template>
@@ -54,23 +80,32 @@ onMounted(() => {
   max-width: 1200px;
   margin: 0 auto;
 }
-.year-section {
-  margin-bottom: 3rem;
-}
 .image-grid {
-  column-count: 1;
-  column-gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-auto-rows: 10px; /* размер строки в пикселях */
+  gap: 1rem;
 }
 
-@media (width >= 600px) {
-  .image-grid {
-    column-count: 2;
-  }
+.spinner, .end-message {
+  text-align: center;
+  margin: 2rem 0;
+  font-size: 1.2rem;
+  color: var(--text-color-2);
 }
 
-@media (width >= 900px) {
-  .image-grid {
-    column-count: 3;
-  }
+.spinner {
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
+}
+
+#scroll-sentinel {
+  width: 100%;
+  height: 1px;
 }
 </style>

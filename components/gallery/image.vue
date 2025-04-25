@@ -4,14 +4,12 @@ import { NuxtImg } from '#components'
 defineProps<{
   src: string
   alt?: string | null
-  index: number
+  orientation?: 'portrait' | 'landscape'
 }>()
-
-const isLoaded = ref(false)
 </script>
 
 <template>
-  <div class="gallery-item">
+  <div class="gallery-item" :class="orientation">
     <NuxtImg
       :src="src"
       :alt="alt || 'Photo'"
@@ -21,21 +19,20 @@ const isLoaded = ref(false)
       sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 25vw"
       format="webp"
       quality="80"
-      :class="{ 'is-loaded': isLoaded }"
-      @load="isLoaded = true"
     />
   </div>
 </template>
 
 <style scoped>
 .gallery-item {
-  display: inline-block;
   width: 100%;
-  margin-bottom: 1rem;
+  display: block;
   border-radius: 0.75rem;
   overflow: hidden;
   transition: transform 0.3s ease;
+  grid-row-end: span var(--rows, 11);
 }
+
 .gallery-item:hover {
   transform: scale(1.02);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -43,16 +40,17 @@ const isLoaded = ref(false)
 
 .gallery-img {
   width: 100%;
-  height: auto;
-  display: block;
+  height: 100%;
   object-fit: cover;
-  opacity: 0;
-  transform: scale(1.02);
+  display: block;
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-.gallery-img.is-loaded {
-  opacity: 1;
-  transform: scale(1);
+/* Управление размером */
+.gallery-item.portrait {
+  --rows: 20;
+}
+.gallery-item.landscape {
+  --rows: 7;
 }
 </style>
