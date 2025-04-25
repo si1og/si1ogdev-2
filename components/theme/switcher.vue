@@ -54,7 +54,7 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped>
+<style>
 .theme-switch--conteiner {
 	position: relative;
 }

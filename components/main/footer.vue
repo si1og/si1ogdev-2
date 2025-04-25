@@ -1,12 +1,9 @@
 <script setup lang="ts">
-import { navbarData, socialLinks } from '../../data'
+import { socialLinks } from '../../data'
 
-const route = useRoute()
-
-const path = computed(() => route.fullPath.replace('/', ''))
-function isActive(path: string) {
-  return route.path.startsWith(path)
-}
+defineProps<{
+  isGalleryView?: boolean
+}>()
 </script>
 
 <template>

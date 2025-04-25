@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { navbarData } from '../../data'
 
+defineProps<{
+  yearsInNav?: boolean
+  galleryTitle?: boolean
+}>()
+
 const route = useRoute()
 function isActive(path: string) {
   return route.path.startsWith(path)
