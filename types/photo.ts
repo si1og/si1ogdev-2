@@ -1,15 +1,13 @@
 export interface Photo {
   id: string
+  alt_description: string
   created_at: string
-  alt_description: string | null
-  width: number
-  height: number
-  orientation: 'portrait' | 'landscape'
-  urls: {
-    raw: string
-    full: string
-    regular: string
-    small: string
+  orientation: 'landscape' | 'portrait'
+  previewUrl: string
+  sizes: {
     thumb: string
+    small: string
+    full: string
+    blurHash: string
   }
 }

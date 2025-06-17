@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
 
   const query = getQuery(event)
   const page = query.page ? Number(query.page) : 1
-  const perPage = 30
+  const perPage = 15
 
   const res = await $fetch<any[]>(`https://api.unsplash.com/users/${username}/photos`, {
     params: {
@@ -19,10 +19,19 @@ export default defineEventHandler(async (event) => {
       Authorization: `Client-ID ${accessKey}`
     }
   })
-  
+
   const photos = res.map(photo => ({
-    ...photo,
-    orientation: photo.width > photo.height ? 'landscape' : 'portrait'
+    id: photo.id,
+    alt_description: photo.alt_description,
+    created_at: photo.created_at,
+    orientation: photo.width > photo.height ? 'landscape' : 'portrait',
+    previewUrl: `${photo.urls.raw}&w=32&h=32&q=10&fit=crop`,
+    sizes: {
+      thumb: photo.urls.thumb,
+      small: photo.urls.small,
+      full: photo.urls.full,
+      blurHash: photo.blur_hash
+    }
   }))
 
   return photos

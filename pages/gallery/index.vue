@@ -66,7 +66,7 @@ onNuxtReady(() => {
       <GalleryImage
         v-for="photo in photos"
         :key="photo.id"
-        :src="photo.urls.small"
+        :src="photo.sizes.small"
         :alt="photo.alt_description"
         :orientation="photo.orientation"
       />

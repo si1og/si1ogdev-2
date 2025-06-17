@@ -23,7 +23,7 @@ const filteredPhotos = computed(() => {
       <img
         v-for="photo in filteredPhotos"
         :key="photo.id"
-        :src="photo.urls.small"
+        :src="photo.sizes.small"
         :alt="photo.alt_description || 'Photo'"
         class="gallery-img"
       />
