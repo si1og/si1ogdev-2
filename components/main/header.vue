@@ -88,7 +88,8 @@ nav>ul {
 			transition: .3s ease;
 			text-decoration: none;
 			&:hover,
-			&:focus {
+			&:focus,
+      &.underline {
 				font-style: italic;
 				font-variation-settings: "wght" 800, "ital" 1;
 			}

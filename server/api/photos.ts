@@ -19,8 +19,7 @@ export default defineEventHandler(async (event) => {
       Authorization: `Client-ID ${accessKey}`
     }
   })
-
-  // Добавляем orientation к каждому фото
+  
   const photos = res.map(photo => ({
     ...photo,
     orientation: photo.width > photo.height ? 'landscape' : 'portrait'

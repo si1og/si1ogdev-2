@@ -10,12 +10,14 @@ async function fetchPhotos() {
   isLoading.value = true
 
   const { data } = await useLazyFetch<Photo[]>('/api/photos', {
-  query: { page: page.value },
-  default: () => []
-})
+    query: { page: page.value },
+    default: () => []
+  })
 
   if (data.value && data.value.length > 0) {
-    photos.value.push(...data.value)
+    for (const element of data.value) {
+      await addPhotoOnPage(element);
+    }
   } else {
     isEndReached.value = true
   }
@@ -23,9 +25,15 @@ async function fetchPhotos() {
   isLoading.value = false
 }
 
-
-// Загружаем первую страницу
-await fetchPhotos()
+async function addPhotoOnPage(photo: Photo): Promise<void> {
+  return new Promise(resolve => {  
+    setTimeout(() => {
+      photos.value.push(photo);
+      resolve();
+    }, 50);
+  })
+    
+}
 
 const observer = ref<IntersectionObserver>()
 
@@ -45,6 +53,11 @@ onMounted(() => {
 onBeforeUnmount(() => {
   observer.value?.disconnect()
 })
+
+onNuxtReady(() => {
+  fetchPhotos()
+})
+
 </script>
 
 <template>
