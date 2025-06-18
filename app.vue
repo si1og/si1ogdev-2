@@ -47,7 +47,7 @@ useHead({
 
 .layout-enter-from,
 .layout-leave-to {
-  opacity: .5;
+  opacity: 0.5;
 }
 
 html.dark {
@@ -81,7 +81,7 @@ button,
 input,
 textarea {
   outline: 2px solid transparent;
-  transition: .2s ease;
+  transition: 0.2s ease;
   font-size: 18px;
 
   &:focus-visible {
@@ -90,14 +90,13 @@ textarea {
 }
 
 a {
-	text-decoration-color: 
-    color-mix(in srgb, currentColor, transparent 75%);
-	text-underline-offset: 2px;
+  text-decoration-color: color-mix(in srgb, currentColor, transparent 75%);
+  text-underline-offset: 2px;
 }
 a:hover,
 a:focus {
-	text-decoration-color: color-mix(in srgb, currentColor, transparent 20%);
-	color: var(--text-color-5);
+  text-decoration-color: color-mix(in srgb, currentColor, transparent 20%);
+  color: var(--text-color-5);
 }
 
 @font-face {
@@ -112,5 +111,4 @@ a:focus {
   font-weight: 300 900;
   font-style: italic;
 }
-
 </style>

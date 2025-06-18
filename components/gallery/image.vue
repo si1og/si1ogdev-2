@@ -3,13 +3,21 @@ import { NuxtImg } from '#components'
 
 defineProps<{
   src: string
+  image_id: string
   alt?: string | null
   orientation?: 'portrait' | 'landscape'
+  stats?: {
+    views: number,
+    downloads: number
+  }
 }>()
 </script>
 
 <template>
-  <div class="gallery-item" :class="orientation">
+  <NuxtLink :to="`gallery/image/${image_id}`" target="_blank" class="gallery-item" :class="orientation">
+    <div class="_blank-indacator">
+      <IconUse id="external-link" :width="20" :height="20" />
+    </div>
     <NuxtImg
       :src="src"
       :alt="alt || 'Photo'"
@@ -20,6 +28,12 @@ defineProps<{
       format="webp"
       quality="80"
     />
+  </NuxtLink>
+  <div class="stats">
+    <div class="stats__value" :class="key" v-for="value, key of stats">
+      <IconUse :id="key" :width="20" :height="20" />``
+      {{ value }}
+    </div>
   </div>
 </template>
 

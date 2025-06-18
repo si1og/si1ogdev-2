@@ -65,22 +65,19 @@ onNuxtReady(() => {
     <div class="image-grid">
       <GalleryImage
         v-for="photo in photos"
-        :key="photo.id"
+        :image_id="photo.id"
         :src="photo.sizes.small"
         :alt="photo.alt_description"
         :orientation="photo.orientation"
       />
     </div>
 
-    <!-- Страж -->
     <div id="scroll-sentinel"></div>
 
-    <!-- Спиннер -->
     <div v-if="isLoading" class="spinner">
       Loading...
     </div>
 
-    <!-- Сообщение о завершении -->
     <div v-else-if="isEndReached" class="end-message">
       No more photos.
     </div>
