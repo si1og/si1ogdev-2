@@ -36,7 +36,8 @@ defineProps<{
 .footer {
   width: 100%;
   background: var(--bg-color-1);
-	box-shadow: 0 0 12px #00000009;
+	box-shadow: 0 0 6px #00000009;
+  border-top: 1px solid var(--decoration-border-color);
 
   &>div {
     display: flex;

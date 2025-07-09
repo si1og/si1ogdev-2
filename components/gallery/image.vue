@@ -45,7 +45,7 @@ defineProps<{
   transition: .2s ease;
   box-shadow: 0 0 8px #00000014;
   animation: fade-in .2s ease;
-  &:hover ._blank-indacator,
+  &:not(:has(.download:hover)):hover ._blank-indacator,
   &:focus ._blank-indacator,
   &:hover .download,
   &:focus .download,

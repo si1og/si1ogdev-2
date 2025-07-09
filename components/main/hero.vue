@@ -80,7 +80,7 @@ function copyToClipboard(text: string, id: string) {
 
 .main-content__title {
   position: relative;
-  margin: 20px 0 0 0;
+  margin: 30px 0 10px 0;
   --margin: 35px;
   h1, p {
     text-align: center;
@@ -113,7 +113,8 @@ function copyToClipboard(text: string, id: string) {
   background: var(--bg-color-1);
   padding: 20px;
   border-radius: 30px;
-  box-shadow: 0 0 8px #0000000a;
+  border: 1px solid var(--decoration-border-color);
+  box-shadow: 0 0 6px #0000000a;
   h2, p {
     margin: 0;
     text-wrap: balance;
@@ -140,8 +141,8 @@ function copyToClipboard(text: string, id: string) {
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       background: var(--text-color-1);
       border-radius: 50%;
     }
@@ -150,8 +151,8 @@ function copyToClipboard(text: string, id: string) {
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       border: none;
       border-radius: 50%;
       background: var(--text-color-1);

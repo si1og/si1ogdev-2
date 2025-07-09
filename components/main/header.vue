@@ -1,11 +1,6 @@
 <script setup lang="ts">
 import { navbarData } from '../../data'
 
-defineProps<{
-  yearsInNav?: boolean
-  galleryTitle?: boolean
-}>()
-
 const route = useRoute()
 function isActive(path: string) {
   return route.path.startsWith(path)
@@ -36,11 +31,15 @@ function isActive(path: string) {
         </ul>
       </nav>
     </div>
+    <div class="backdrop"></div>
+    <div class="backdrop-edge"></div>
   </header>
 
 </template>
 <style>
 header {
+  --thickness: 1px;
+
   position: sticky;
   top: 0;
   display: flex;
@@ -48,11 +47,11 @@ header {
   justify-content: center;
   width: 100%;
   min-height: 50px;
-  background: var(--bg-color-1);
-	box-shadow: 0 0 12px #00000009;
+  background: var(--bg-color-11);
+  box-shadow: 0 0 6px #00000011;
   z-index: 10;
 
-  &>div {
+  .split {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -62,6 +61,54 @@ header {
     margin: 0 auto;
     padding: 0px 42px;
     box-sizing: border-box;
+  }
+  .backdrop {
+    position: absolute;
+    inset: 0;
+    
+    backdrop-filter: blur(16px);
+    pointer-events: none;
+    z-index: -1;
+  }
+  .backdrop-edge {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--thickness);
+    background: hsl(0deg 0% 100% / 0.1);
+    backdrop-filter: blur(12px) brightness(0.96);
+    transform: translateY(100%);
+    pointer-events: none;
+    z-index: -1;
+  }
+  @supports
+    (mask-image: none) or
+    (-webkit-mask-image: none)
+  {
+    .backdrop {
+      height: 200%;
+      -webkit-mask-image: linear-gradient(
+        to bottom,
+        black 0% 50%,
+        transparent 50% 100%
+      );
+      mask-image: linear-gradient(
+        to bottom,
+        black 0% 50%,
+        transparent 50% 100%
+      );
+    }
+    .backdrop-edge {
+      height: 100%;
+      inset: 0;
+      mask-image: linear-gradient(
+        to bottom,
+        black 0,
+        black var(--thickness),
+        transparent var(--thickness)
+      );
+    }
   }
 }
 
@@ -106,6 +153,7 @@ nav>ul {
 }
 
 .skip-nav {
+  display: none;
   position: absolute;
   width: 100%;
   background: var(--text-color-1);
