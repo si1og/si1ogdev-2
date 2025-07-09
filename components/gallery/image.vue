@@ -48,7 +48,8 @@ defineProps<{
   &:hover ._blank-indacator,
   &:focus ._blank-indacator,
   &:hover .download,
-  &:focus .download {
+  &:focus .download,
+  &:has(:focus) .download {
     transform: translate(0);
     opacity: 1;
   }
@@ -108,19 +109,45 @@ defineProps<{
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 30px;
+  width: auto;
   height: 30px;
+  padding: 0 0 0 30px;
   border-radius: 0 10px 0 0;
   background: var(--bg-color-1);
   transition: .2s ease;
+  overflow: hidden;
 
   /* On not avtive */
   transform: translate(-40%, 40%);
   opacity: 0;
   & > span {
     position: absolute;
-    right: 0;
+    top: 50%;
+    right: 7px;
     opacity: 0;
+    font-size: 16px;
+    transition: inherit;
+    transform: translate(0, -50%);
+  }
+
+  &:hover,
+  &:focus {
+    width: auto;
+    padding: 0 75px 0 30px;
+    span {
+      opacity: 1;
+    }
+  }
+
+  &::after {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    background: var(--bg-color-1);
   }
 }
 
@@ -152,5 +179,7 @@ defineProps<{
   fill: var(--bg-color-1);
   position: absolute;
   top: 3px;
+  left: 5px;
+  z-index: 1;
 }
 </style>
