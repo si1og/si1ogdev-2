@@ -9,5 +9,8 @@ export interface Photo {
     small: string
     full: string
     blurHash: string
+  },
+  links: {
+    download: string
   }
 }

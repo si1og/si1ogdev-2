@@ -69,6 +69,7 @@ onNuxtReady(() => {
         :src="photo.sizes.small"
         :alt="photo.alt_description"
         :orientation="photo.orientation"
+        :download_link="photo.links.download"
       />
     </div>
 

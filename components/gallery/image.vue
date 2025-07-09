@@ -6,10 +6,7 @@ defineProps<{
   image_id: string
   alt?: string | null
   orientation?: 'portrait' | 'landscape'
-  stats?: {
-    views: number,
-    downloads: number
-  }
+  download_link?: string
 }>()
 </script>
 
@@ -28,17 +25,18 @@ defineProps<{
       format="webp"
       quality="80"
     />
+    <NuxtLink :to="download_link" class="download">
+      <IconUse id="download" :width="20" :height="20" />
+      <span class="download__text">
+        Download
+      </span>
+    </NuxtLink>
   </NuxtLink>
-  <div class="stats">
-    <div class="stats__value" :class="key" v-for="value, key of stats">
-      <IconUse :id="key" :width="20" :height="20" />``
-      {{ value }}
-    </div>
-  </div>
 </template>
 
 <style scoped>
 .gallery-item {
+  position: relative;
   grid-row-end: span var(--rows, 11);
   width: 100%;
   display: block;
@@ -47,6 +45,13 @@ defineProps<{
   transition: .2s ease;
   box-shadow: 0 0 8px #00000014;
   animation: fade-in .2s ease;
+  &:hover ._blank-indacator,
+  &:focus ._blank-indacator,
+  &:hover .download,
+  &:focus .download {
+    transform: translate(0);
+    opacity: 1;
+  }
 }
 
 .animate {
@@ -97,5 +102,55 @@ defineProps<{
 }
 .gallery-item.landscape {
   --rows: 7;
+}
+
+.download {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 0 10px 0 0;
+  background: var(--bg-color-1);
+  transition: .2s ease;
+
+  /* On not avtive */
+  transform: translate(-40%, 40%);
+  opacity: 0;
+  & > span {
+    position: absolute;
+    right: 0;
+    opacity: 0;
+  }
+}
+
+
+</style>
+
+
+<style>
+._blank-indacator {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 0 0 0 10px;
+  box-shadow: 0 0 8px #00000014;
+  background: var(--bg-color-1);
+  opacity: 0;
+  transform: translate(40%, -40%);
+  transition: .2s ease;
+  svg {
+    top: 5px;
+    position: absolute;
+    stroke: var(--text-color-1);
+  }
+}
+
+.download svg {
+  fill: var(--bg-color-1);
+  position: absolute;
+  top: 3px;
 }
 </style>

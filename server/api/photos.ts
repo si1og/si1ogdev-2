@@ -1,3 +1,4 @@
+import { Link } from '#components'
 import { defineEventHandler, getQuery } from 'h3'
 import { $fetch } from 'ofetch'
 
@@ -19,7 +20,7 @@ export default defineEventHandler(async (event) => {
       Authorization: `Client-ID ${accessKey}`
     }
   })
-
+  
   const photos = res.map(photo => ({
     id: photo.id,
     alt_description: photo.alt_description,
@@ -31,6 +32,9 @@ export default defineEventHandler(async (event) => {
       small: photo.urls.small,
       full: photo.urls.full,
       blurHash: photo.blur_hash
+    },
+    links: {
+      download: photo.links.download
     }
   }))
 
