@@ -102,7 +102,7 @@ onNuxtReady(() => {
   text-align: center;
   margin: 2rem 0;
   font-size: 1.2rem;
-  color: var(--text-color-2);
+  color: var(--text-color-1);
 }
 
 .spinner {

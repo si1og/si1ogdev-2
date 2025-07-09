@@ -45,6 +45,8 @@ defineProps<{
   transition: .2s ease;
   box-shadow: 0 0 8px #00000014;
   animation: fade-in .2s ease;
+  z-index: 0;
+
   &:not(:has(.download:hover)):hover ._blank-indacator,
   &:focus ._blank-indacator,
   &:hover .download,
@@ -124,8 +126,9 @@ defineProps<{
     position: absolute;
     top: 50%;
     right: 7px;
-    opacity: 0;
     font-size: 16px;
+    color: var(--text-color-1);
+    opacity: 0;
     transition: inherit;
     transform: translate(0, -50%);
   }
