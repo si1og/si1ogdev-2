@@ -88,11 +88,6 @@ header {
   {
     .backdrop {
       height: 200%;
-      -webkit-mask-image: linear-gradient(
-        to bottom,
-        black 0% 50%,
-        transparent 50% 100%
-      );
       mask-image: linear-gradient(
         to bottom,
         black 0% 50%,

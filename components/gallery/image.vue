@@ -11,7 +11,7 @@ defineProps<{
 </script>
 
 <template>
-  <NuxtLink :to="`gallery/image/${image_id}`" target="_blank" class="gallery-item" :class="orientation">
+  <NuxtLink :to="`gallery/image/${image_id}`" class="gallery-item" :class="orientation">
     <div class="_blank-indacator">
       <IconUse id="external-link" :width="20" :height="20" />
     </div>

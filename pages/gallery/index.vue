@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import type { Photo } from '~/types/photo'
 
+definePageMeta({
+  layout: 'gallery'
+})
+
 const page = ref(1)
 const photos = ref<Photo[]>([])
 const isLoading = ref(false)

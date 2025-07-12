@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <MainHeader />
+    <GalleryHeader />
 
     <main class="main" id="main">
       <div />
@@ -14,7 +14,7 @@
 <style scoped>
 .main {
   width: 100%;
-  max-width: var(--content-max-width);
+  max-width: 1440px;
   padding: 0 42px;
 }
 

@@ -1,25 +1,4 @@
 export const navbarData = {
-  navbarData: '',
-  home: {
-    text: 'Главная',
-    rote: '',
-  },
-  about: {
-    text: 'О нас',
-    rote: 'about',
-  },
-  contacts: {
-    text: 'Контакты',
-    rote: 'contacts',
-  },
-  search: {
-    text: 'Поиск',
-    rote: 'search',
-  },
-  news: {
-    text: 'Новости',
-    rote: 'news',
-  },
 	gallery: {
     text: 'Gallery',
     rote: 'gallery',
