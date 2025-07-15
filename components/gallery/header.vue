@@ -2,6 +2,7 @@
 import { navbarData } from '../../data'
 
 const route = useRoute()
+const isScrolled = ref(false)
 
 function isActive(path: string) {
   return route.path.startsWith(path)
@@ -21,6 +22,19 @@ function currentPage() {
   return { key, label: key }
 }
 
+
+function handleScroll() {
+  isScrolled.value = window.scrollY > 10
+}
+
+onMounted(() => {
+  handleScroll()
+  window.addEventListener('scroll', handleScroll)
+})
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
+
 </script>
 
 <template>
@@ -33,9 +47,9 @@ function currentPage() {
         <IconLogo />
         /
         <div class="page-indicator__switcher">
-          <button class="page-indicator__select">
-            <NuxtLink :to="`/${currentPage().key}`" class="underline" :class="currentPage().key" > {{
-              currentPage().label }}
+          <button class="page-indicator__select" :class="{scrolled: isScrolled}">
+            <NuxtLink :to="`/${currentPage().key}`" class="underline" :class="currentPage().key" > 
+              {{ currentPage().label }}
             </NuxtLink>
             <IconUse :id="'next'" :width="6" :height="11" />
           </button>
@@ -212,6 +226,15 @@ a {
   border: 1px solid var(--decoration-border-color);
   background: none;
   border-radius: 10px;
+
+  &.scrolled {
+    border: 1px solid transparent;
+    background: var(--page-indicator-select-on-scroll-color);
+    &:hover,
+    &:focus {
+      border: 1px solid var(--page-indicator-select-on-scroll-color-active);
+    }
+  }
 }
 
 .page-indicator__popup {
