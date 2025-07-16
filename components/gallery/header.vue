@@ -251,17 +251,21 @@ a {
   top: 30px;
   width: 100%;
   padding: var(--popup-margin) 0 0 0;
+  transition: .2s ease;
 
   opacity: 0;
   visibility: hidden;
+  transform: scale(0.95);
+  transform-origin: top center;
 }
 
 .page-indicator__popup {
   margin: 0;
   padding: 10px 7px;
   list-style: none;
+  border: 1px solid var(--decoration-border-color);
   border-radius: 10px;
-  background: var(--page-indicator-select-on-scroll-color);
+  background: var(--bg-color-1);
   box-shadow: 0 0 8px #00000011;
   backdrop-filter: blur(16px);
   li {
@@ -287,6 +291,7 @@ a {
 .page-indicator__popup--hover:has(:focus),
 .page-indicator__popup--hover:hover {
   opacity: 1;
+  transform: scale(1);
   visibility:visible;
 }
 </style>

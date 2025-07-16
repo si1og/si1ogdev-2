@@ -79,13 +79,14 @@ onMounted(() => {
 .theme-switch__popover {
 	position: absolute;
 	right: 0;
-	top: 30px;
+	top: 2rem;
   display: flex;
   flex-direction: column;
   min-width: 120px;
-  padding: 0.5rem 0;
+  padding: 0.7rem .4rem;
   border: none;
   border-radius: 1rem;
+  border: 1px solid var(--decoration-border-color);
   background: var(--bg-color-1);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   transition: opacity 0.2s ease, transform 0.2s ease;
@@ -120,7 +121,7 @@ onMounted(() => {
   background: none;
   border: none;
   width: 100%;
-  padding: 0.2rem 1rem;
+  padding: 0.2rem .7rem;
   font-size: 1rem;
   cursor: pointer;
   border-radius: 0.5rem;
