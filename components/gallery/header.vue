@@ -238,9 +238,32 @@ a {
 }
 
 .page-indicator__popup {
+  --popup-margin: 26px;
+
   position: absolute;
-  top: 30px;
+  top: var(--popup-margin);
+  background: var(--page-indicator-select-on-scroll-color);
+  box-shadow: 0 0 8px #00000011;
+  backdrop-filter: blur(16px);
   opacity: 0;
+  visibility: hidden;
+}
+
+.page-indicator__popup::before {
+  content: "";
+  
+  position: absolute;
+  width: 100%;
+  height: var(--popup-margin);
+  top: -var(--popup-margin);
+}
+
+.page-indicator__select:hover ~ .page-indicator__popup,
+.page-indicator__select:focus ~ .page-indicator__popup,
+.page-indicator__popup:has(:focus),
+.page-indicator__popup:hover {
+  opacity: 1;
+  visibility:visible;
 }
 </style>
 
