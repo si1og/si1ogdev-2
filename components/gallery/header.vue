@@ -27,6 +27,11 @@ function handleScroll() {
   isScrolled.value = window.scrollY > 10
 }
 
+const otherNavKeys = computed(() => {
+  return (Object.keys(navbarData) as (keyof typeof navbarData)[])
+    .filter(element => element !== currentPage().key)
+})
+
 onMounted(() => {
   handleScroll()
   window.addEventListener('scroll', handleScroll)
@@ -53,13 +58,15 @@ onUnmounted(() => {
             </NuxtLink>
             <IconUse :id="'next'" :width="6" :height="11" />
           </button>
-          <ul class="page-indicator__popup">
-            <li v-for="key in Object.keys(navbarData).filter(element => element !== currentPage().key)">
-              <NuxtLink :to="`/${key}`" :class="key" > 
-                {{ key }}
-              </NuxtLink>
-            </li>
-          </ul>
+          <div class="page-indicator__popup--hover">
+            <ul class="page-indicator__popup">
+              <li v-for="key in otherNavKeys">
+                <NuxtLink :to="`/${key}`" :class="key" > 
+                  {{ navbarData[key].text }}
+                </NuxtLink>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
       <nav>
@@ -237,46 +244,66 @@ a {
   }
 }
 
-.page-indicator__popup {
-  --popup-margin: 26px;
+.page-indicator__popup--hover {
+--popup-margin: 10px;
 
   position: absolute;
-  top: var(--popup-margin);
-  background: var(--page-indicator-select-on-scroll-color);
-  box-shadow: 0 0 8px #00000011;
-  backdrop-filter: blur(16px);
+  top: 30px;
+  width: 100%;
+  padding: var(--popup-margin) 0 0 0;
+
   opacity: 0;
   visibility: hidden;
 }
 
-.page-indicator__popup::before {
-  content: "";
-  
-  position: absolute;
-  width: 100%;
-  height: var(--popup-margin);
-  top: -var(--popup-margin);
+.page-indicator__popup {
+  margin: 0;
+  padding: 10px 7px;
+  list-style: none;
+  border-radius: 10px;
+  background: var(--page-indicator-select-on-scroll-color);
+  box-shadow: 0 0 8px #00000011;
+  backdrop-filter: blur(16px);
+  li {
+    position: relative;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    a {
+      display: block;
+      width: 100%;
+      padding: 5px 10px;
+      border-radius: 10px;
+      &:hover,
+      &:focus {
+        background: var(--bg-color-12);
+      }
+    }
+  }
 }
 
-.page-indicator__select:hover ~ .page-indicator__popup,
-.page-indicator__select:focus ~ .page-indicator__popup,
-.page-indicator__popup:has(:focus),
-.page-indicator__popup:hover {
+.page-indicator__select:hover ~ .page-indicator__popup--hover,
+.page-indicator__select:focus ~ .page-indicator__popup--hover,
+.page-indicator__popup--hover:has(:focus),
+.page-indicator__popup--hover:hover {
   opacity: 1;
   visibility:visible;
 }
 </style>
 
 <style>
-.page-indicator__select {
-  svg {
-    rotate: 180deg;
-    fill: var(--text-color-1);
-    opacity: .3;
-    transition: .2s ease;
+.page-indicator__switcher {
+  .page-indicator__select {
+    svg {
+      rotate: 180deg;
+      fill: var(--text-color-1);
+      opacity: .3;
+      transition: .2s ease;
+    }
+  
   }
-
-  &:hover {
+  &:has(:hover) .page-indicator__select,
+  &:has(:focus) .page-indicator__select {
     background: var(--bg-color-12);
     svg {
       rotate: 270deg;

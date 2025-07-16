@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import type { Photo } from '~/types/photo'
 
+definePageMeta({
+  layout: 'gallery'
+})
+
 const route = useRoute()
 const year = route.params.image_id as string
 
