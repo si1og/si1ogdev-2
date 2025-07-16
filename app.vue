@@ -13,7 +13,7 @@ useHead({
 
 <template>
   <div class="page">
-    <NuxtLoadingIndicator />
+    <NuxtLoadingIndicator color="#348feb" height="5" />
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>

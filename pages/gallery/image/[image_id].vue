@@ -6,36 +6,19 @@ definePageMeta({
 })
 
 const route = useRoute()
-const year = route.params.image_id as string
+const image_id = route.params.image_id as string
 
-const { data: photos } = await useFetch<Photo[]>('/api/photos')
-
-const filteredPhotos = computed(() => {
-  if (!photos.value) return []
-  return photos.value.filter((photo) => {
-    const photoYear = new Date(photo.created_at).getFullYear()
-    return photoYear.toString() === year
+  const { data } = await useLazyFetch<Photo[]>('/api/photo', {
+    query: { id: image_id },
+    default: () => []
   })
-})
+
 </script>
 
 <template>
   <div class="gallery-wrapper">
-    <h2>{{ year }}</h2>
-
-    <div v-if="filteredPhotos.length > 0" class="image-grid">
-      <img
-        v-for="photo in filteredPhotos"
-        :key="photo.id"
-        :src="photo.sizes.small"
-        :alt="photo.alt_description || 'Photo'"
-        class="gallery-img"
-      />
-    </div>
-
-    <div v-else>
-      <p>No photos found for {{ year }}</p>
-    </div>
+    <h2>{{ image_id }}</h2>
+    {{ data }}
   </div>
 </template>
 
