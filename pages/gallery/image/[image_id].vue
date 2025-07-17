@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Photo } from '~/types/photo'
+import type { PhotoByAPI } from '~/types/photo'
 
 definePageMeta({
   layout: 'gallery'
@@ -8,17 +8,23 @@ definePageMeta({
 const route = useRoute()
 const image_id = route.params.image_id as string
 
-  const { data } = await useLazyFetch<Photo[]>('/api/photo', {
-    query: { id: image_id },
-    default: () => []
-  })
+const { data, error, pending } = await useLazyFetch<PhotoByAPI>('/api/photo', {
+  query: { id: image_id }
+})
 
 </script>
 
 <template>
   <div class="gallery-wrapper">
     <h2>{{ image_id }}</h2>
-    {{ data }}
+
+    <div v-if="pending">Загрузка...</div>
+    <div v-else-if="error">
+      <p class="error">Ошибка: {{ error.statusCode }} – {{ error.statusMessage }}</p>
+    </div>
+    <div v-else>
+      <pre>{{ data }}</pre>
+    </div>
   </div>
 </template>
 
@@ -27,24 +33,5 @@ const image_id = route.params.image_id as string
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
-}
-.year-section {
-  margin-bottom: 3rem;
-}
-.image-grid {
-  column-count: 1;
-  column-gap: 1rem;
-}
-
-@media (width >= 600px) {
-  .image-grid {
-    column-count: 2;
-  }
-}
-
-@media (width >= 900px) {
-  .image-grid {
-    column-count: 3;
-  }
 }
 </style>
