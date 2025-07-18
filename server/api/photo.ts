@@ -1,4 +1,3 @@
-import { Link } from '#components'
 import { defineEventHandler, getQuery } from 'h3'
 import { $fetch } from 'ofetch'
 
@@ -6,7 +5,6 @@ import type { PhotoByAPI } from '~/types/photo'
 
 export default defineEventHandler(async (event) => {
   const accessKey = process.env.UNSPLASH_ACCESS_KEY
-  const username = process.env.UNSPLASH_USERNAME
 
   const query = getQuery(event)
   const id = query.id
@@ -39,7 +37,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-console.log(res)
+// console.log(res)
 
   const photo: PhotoByAPI = {
     id: res.id,

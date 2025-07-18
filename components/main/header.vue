@@ -36,7 +36,7 @@ function isActive(path: string) {
   </header>
 
 </template>
-<style>
+<style scoped>
 header {
   --thickness: 1px;
 

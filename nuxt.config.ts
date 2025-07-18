@@ -70,5 +70,9 @@ export default defineNuxtConfig({
 
   devtools: {
     enabled: true,
+  },
+
+  image: {
+    domains: ['images.unsplash.com']
   }
 })

@@ -49,9 +49,14 @@ defineProps<{
     padding: 20px var(--page-padding);
   }
   ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 35px;
     margin: 0;
     padding: 0;
+    list-style: none;
     a {
+      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;

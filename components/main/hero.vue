@@ -199,56 +199,6 @@ function copyToClipboard(text: string, id: string) {
 .description__info svg {
   fill: var(--bg-color-1);
 }
-.tooltip {
-  position: absolute;
-  top: -40px;
-  left: 50%;
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  padding: 5px 10px;
-  border-radius: 20px;
-  box-shadow: 0 0 10px #00000018;
-  white-space: nowrap;
-  background: var(--text-color-1);
-  color: var(--bg-color-1);
-  transform: translate(-50%, 3px) scale(.9);
-  transition: .2s ease;
-  opacity: 0;
-  pointer-events: none;
-  visibility: hidden;
-  &.ex-link {
-    svg {
-      stroke: var(--bg-color-1);
-    }
-  }
-  &::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 6px;
-    border-style: solid;
-    border-color: var(--text-color-1) transparent transparent transparent;
-  }
-}
-button, a {
-  &:hover,
-  &:focus {
-    cursor: pointer;
-    .tooltip {
-      opacity: 1 !important;
-      pointer-events: all !important;
-      visibility: visible !important;
-      transform: translate(-50%, 0) scale(1) !important;
-      z-index: inherit;
-    }
-  }
-  &:hover {
-    z-index: 10;
-  }
-}
 .description__photo-social svg {
   fill: var(--text-color-1);
 }

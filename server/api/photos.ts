@@ -1,4 +1,3 @@
-import { Link } from '#components'
 import { defineEventHandler, getQuery } from 'h3'
 import { $fetch } from 'ofetch'
 
