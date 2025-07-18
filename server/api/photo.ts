@@ -39,6 +39,8 @@ export default defineEventHandler(async (event) => {
     })
   }
 
+console.log(res)
+
   const photo: PhotoByAPI = {
     id: res.id,
     alt_description: res.alt_description,
@@ -48,6 +50,7 @@ export default defineEventHandler(async (event) => {
     sizes: {
       thumb: res.urls.thumb,
       small: res.urls.small,
+      regular: res.urls.regular,
       full: res.urls.full,
       blurHash: res.blur_hash
     },
@@ -64,6 +67,7 @@ export default defineEventHandler(async (event) => {
       focal_length: res.exif.focal_length,
       iso: res.exif.iso
     },
+    tags: res.tags,
     views: res.views,
     downloads: res.downloads
   }

@@ -24,6 +24,7 @@ export interface PhotoByAPI {
   sizes: {
     thumb: string
     small: string
+    regular: string
     full: string
     blurHash: string
   },
@@ -40,6 +41,7 @@ export interface PhotoByAPI {
     focal_length: string,
     iso: number
   }
+  tags: { type: string, title: string }[]
   views: number,
   downloads: number
 }
