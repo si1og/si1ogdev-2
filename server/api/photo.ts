@@ -44,6 +44,7 @@ export default defineEventHandler(async (event) => {
     alt_description: res.alt_description,
     created_at: res.created_at,
     orientation: res.width > res.height ? 'landscape' : 'portrait',
+    aspect_ratio:`${res.width}/${res.height}`, 
     previewUrl: `${res.urls.raw}&w=32&h=32&q=10&fit=crop`,
     sizes: {
       thumb: res.urls.thumb,
@@ -57,13 +58,11 @@ export default defineEventHandler(async (event) => {
       html: res.links.html
     },
     exif: {
-      make: res.exif.make,
-      model: res.exif.model,
       name: res.exif.name,
-      exposure_time: res.exif.exposure_time,
-      aperture: res.exif.aperture,
-      focal_length: res.exif.focal_length,
-      iso: res.exif.iso
+      exposure_time: `${res.exif.exposure_time}s`,
+      aperture: `1:${res.exif.aperture}`,
+      focal_length: `${res.exif.focal_length}mm`,
+      iso: `iso ${res.exif.iso}`
     },
     tags: res.tags,
     views: res.views,

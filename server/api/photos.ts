@@ -9,17 +9,32 @@ export default defineEventHandler(async (event) => {
   const page = query.page ? Number(query.page) : 1
   const perPage = 15
 
-  const res = await $fetch<any[]>(`https://api.unsplash.com/users/${username}/photos`, {
-    params: {
-      per_page: perPage,
-      page,
-      order_by: 'latest',
-    },
-    headers: {
-      Authorization: `Client-ID ${accessKey}`
+  let res: any[]
+
+  try {
+    res = await $fetch(`https://api.unsplash.com/users/${username}/photos`, {
+      params: {
+        per_page: perPage,
+        page,
+        order_by: 'latest',
+      },
+      headers: {
+        Authorization: `Client-ID ${accessKey}`
+      }
+    })
+  } catch (err: any) {
+    if (err?.response?.status === 404) {
+      throw createError({
+        statusCode: 404,
+        statusMessage: 'Image not found'
+      })
     }
-  })
-  
+    throw createError({
+      statusCode: 500,
+      statusMessage: 'Failed to fetch photo data'
+    })
+  }
+
   const photos = res.map(photo => ({
     id: photo.id,
     alt_description: photo.alt_description,

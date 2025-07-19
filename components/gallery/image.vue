@@ -57,34 +57,6 @@ defineProps<{
   }
 }
 
-.animate {
-  background: linear-gradient(90deg, rgba(177, 177, 178, 0.29) 0%, rgba(225, 224, 224, 0.25) 50%, rgba(178, 178, 179, 0.29) 100%);
-  background-size: 1000% 1000%;
-  animation: background-animation 4s ease infinite;
-}
-
-@keyframes background-animation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-@keyframes fade-in {
-  from {
-    transform: translateY(5px);
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 .gallery-item:hover {
   transform: scale(1.02);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);

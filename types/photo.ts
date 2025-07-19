@@ -20,6 +20,7 @@ export interface PhotoByAPI {
   alt_description: string
   created_at: string
   orientation: 'landscape' | 'portrait'
+  aspect_ratio: string
   previewUrl: string
   sizes: {
     thumb: string
@@ -33,13 +34,11 @@ export interface PhotoByAPI {
     html: string
   }
   exif: {
-    make: string,
-    model: string,
     name: string,
     exposure_time: string,
     aperture: string,
     focal_length: string,
-    iso: number
+    iso: string
   }
   tags: { type: string, title: string }[]
   views: number,
