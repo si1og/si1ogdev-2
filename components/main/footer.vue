@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { socialLinks } from '../../data'
+import { socialLinks, licensing } from '../../data'
 
 defineProps<{
   isGalleryView?: boolean
@@ -25,9 +25,16 @@ defineProps<{
           </li>
         </ul>
       </nav>
-			<NuxtLink to="https://github.com/si1og/si1ogdev-2"> 
-				Handcrafted by me
-			</NuxtLink>
+      <div class="licensing">
+        <span class="copyright">
+          © 2025 · Ilya Semenov
+        </span>
+        <ul>
+          <li v-for="item in licensing">
+            <NuxtLink :to="item.link">{{ item.name }}</NuxtLink>
+          </li>
+        </ul>
+      </div>
     </div>
   </footer>
 </template>
@@ -48,7 +55,7 @@ defineProps<{
     margin: 0 auto;
     padding: 20px var(--page-padding);
   }
-  ul {
+  nav ul {
     display: flex;
     flex-wrap: wrap;
     gap: 35px;
@@ -68,6 +75,47 @@ defineProps<{
   }
 }
 
+.licensing {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 15px 0 0 0;
+  &::before {
+    content: "";
+
+    position: absolute;
+    top: -10px;
+    width: 100%;
+    height: 1px;
+    border-top: 1px dashed var(--text-color-1);
+    opacity: .15;
+  }
+  ul {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    li {
+      position: relative;
+      &:nth-of-type(n + 2)::before {
+        position: absolute;
+        left: -12px;
+        top: 2px;
+        content: "·";
+      }
+    }
+  }
+}
+
+.copyright {
+  padding: 5px 10px;
+  border-radius: 20px;
+  background: var(--text-color-1);
+  color: var(--bg-color-1);
+}
 
 /* we will explain what these classes do next! */
 .v-enter-active,

@@ -100,6 +100,15 @@ function handlePreviewLoaded() {
 </template>
 
 <style scoped>
+h2, p {
+  margin: 0;
+  text-wrap: balance;
+}
+h2 {
+  font-family: 'Vollkorn';
+  font-style: italic;
+}
+
 .photo-wrapper {
   position: relative;
   max-width: 1200px;
@@ -117,6 +126,7 @@ function handlePreviewLoaded() {
 .photo__image {
   position: relative;
   border-radius: 20px;
+  box-shadow: 0 0 10px #00000021;
   overflow: hidden;
   img {
     position: absolute;
