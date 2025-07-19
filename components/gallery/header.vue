@@ -169,6 +169,15 @@ nav>ul {
   list-style: none;
   flex-wrap: wrap;
   gap: 28px;
+  li {
+    position: relative;
+    &:not(:first-of-type):not(:last-of-type)::before {
+      position: absolute;
+      left: -15px;
+      top: 2px;
+      content: "·";
+    }
+  }
 }
 
 .gallery {
