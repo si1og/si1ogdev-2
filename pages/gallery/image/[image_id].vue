@@ -117,11 +117,14 @@ function handlePreviewLoaded() {
         </ul>
       </div>
     </div>
-    <ul class="tags" v-if="data?.tags">
-      <li class="tags__item" v-for="tag in data.tags">
-        <NuxtLink :to="`/gallery/tag/${tag.title}`">{{ tag.title }}</NuxtLink>
-      </li>
-    </ul>
+    <div class="tags-conteiner" v-if="data?.tags.length">
+      <h2>Tags</h2>
+      <ul class="tags">
+        <li class="tags__item" v-for="tag in data.tags">
+          <NuxtLink :to="`/gallery/tag/${tag.title}`">{{ tag.title }}</NuxtLink>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -167,7 +170,8 @@ h2 {
 }
 .photo__info--base,
 .photo__exif,
-.photo__controls {
+.photo__controls,
+.tags {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -183,7 +187,8 @@ h2 {
 }
 
 .photo__exif,
-.photo__controls {
+.photo__controls,
+.tags {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -195,19 +200,22 @@ h2 {
     box-shadow: 0 0 6px #0000000a;
     transform-origin: bottom;
     transition: .2s ease;
-    &:hover,
-    &:focus {
-      background: var(--bg-color-11);
-      transform: scale(1.02);
-    }
   }
 }
 
-.photo__controls a {
-  display: flex;
-  gap: 7px;
-  text-decoration: none;
+:where(.photo__controls, .tags) li {
+  &:hover,
+  &:focus {
+    background: var(--bg-color-11);
+    transform: scale(1.03);
+  }
+  a {
+    display: flex;
+    gap: 7px;
+    text-decoration: none;
+  }
 }
+
 
 
 
