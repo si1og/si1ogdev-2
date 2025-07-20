@@ -30,8 +30,19 @@ function handlePreviewLoaded() {
 <template>
   <div class="photo-wrapper">
     <div class="sceleton" v-if="pending">
-      <div class="sceleton__image"></div>
-      <div class="sceleton__description"></div>
+      <div class="sceleton__image animate"></div>
+      <div class="sceleton__description">
+        <div class="sceleton__stats">
+          <div class="sceleton__panel animate" style="width: 139px;"></div>
+          <div class="sceleton__panel animate" style="width: 100px;"></div>
+          <div class="sceleton__panel animate" style="width: 100px;"></div>
+        </div>
+        <div class="sceleton__info">
+          <div class="sceleton__panel animate" style="width: 100px;"></div>
+          <div class="sceleton__panel animate" style="width: 100px;"></div>
+          <div class="sceleton__panel animate" style="width: 100px;"></div>
+        </div>
+      </div>
     </div>
     <div v-else-if="error">
       <p class="error">Ошибка: {{ error.statusCode }} – {{ error.statusMessage }}</p>
@@ -121,7 +132,9 @@ function handlePreviewLoaded() {
       <h2>Tags</h2>
       <ul class="tags">
         <li class="tags__item" v-for="tag in data.tags">
-          <NuxtLink :to="`/gallery/tag/${tag.title}`">{{ tag.title }}</NuxtLink>
+          <NuxtLink :to="`/gallery/tag/${tag.title}`">
+            <span>{{ tag.title }}</span>
+          </NuxtLink>
         </li>
       </ul>
     </div>
@@ -147,7 +160,7 @@ h2 {
 
 .photo {
   display: grid;
-  grid-template-columns: 1fr 200px;
+  grid-template-columns: 1fr 215px;
   gap: 20px;
   width: 100%;
 }
@@ -183,6 +196,9 @@ h2 {
     border-radius: 30px;
     border: 1px solid var(--decoration-border-color);
     box-shadow: 0 0 6px #0000000a;
+    span {
+      text-wrap: balance;
+    }
   }
 }
 
@@ -216,6 +232,9 @@ h2 {
   }
 }
 
+.tags span::first-letter {
+  text-transform: uppercase;
+}
 
 
 
