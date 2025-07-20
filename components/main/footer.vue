@@ -132,6 +132,6 @@ defineProps<{
 
 <style>
   .footer svg {
-    fill: var(--bg-color-1);
+    color: var(--bg-color-1);
   }
 </style>

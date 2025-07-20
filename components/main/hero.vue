@@ -197,9 +197,9 @@ function copyToClipboard(text: string, id: string) {
   border: 1px solid var(--text-color-1);
 }
 .description__info svg {
-  fill: var(--bg-color-1);
+  color: var(--bg-color-1);
 }
 .description__photo-social svg {
-  fill: var(--text-color-1);
+  color: var(--text-color-1);
 }
 </style>

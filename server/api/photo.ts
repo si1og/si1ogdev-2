@@ -37,8 +37,6 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-// console.log(res)
-
   const photo: PhotoByAPI = {
     id: res.id,
     alt_description: res.alt_description,
@@ -50,6 +48,7 @@ export default defineEventHandler(async (event) => {
       thumb: res.urls.thumb,
       small: res.urls.small,
       regular: res.urls.regular,
+      full_hd: `${res.urls.raw}&q=80&w=1920&fit=crop`,
       full: res.urls.full,
       blurHash: res.blur_hash
     },

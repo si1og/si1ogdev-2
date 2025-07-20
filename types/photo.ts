@@ -26,6 +26,7 @@ export interface PhotoByAPI {
     thumb: string
     small: string
     regular: string
+    full_hd: string
     full: string
     blurHash: string
   },

@@ -40,7 +40,7 @@ function handlePreviewLoaded() {
       <div class="photo__image photo__image--stacked" :class="data?.orientation" :style="`aspect-ratio: ${data?.aspect_ratio};`">
         <NuxtImg
           v-if="data"
-          :src="data.sizes.thumb"
+          :src="data.sizes.small"
           :alt="data.alt_description || 'Photo preview'"
           class="preview-img animate"
           format="webp"
@@ -52,7 +52,7 @@ function handlePreviewLoaded() {
         />
         <NuxtImg
           v-if="data && isPreviewLoaded"
-          :src="data.sizes.regular"
+          :src="data.sizes.full_hd"
           :alt="data.alt_description || 'Photo'"
           fit="cover"
           loading="lazy"
@@ -67,28 +67,54 @@ function handlePreviewLoaded() {
         <div class="photo__info">
           <h2>Stats</h2>
           <div class="photo__info--base" v-if="data?.created_at">
-            <div class="photo__views">Views {{ data?.views }}</div>
-            <div class="photo__downloads">Downloads {{ data?.downloads }}</div>
-            <div class="photo__date-from-pub"> 📅 {{ getTimeFromPublished(data.created_at) }}</div>
+            <div class="photo__views">
+              <IconUse id="views" :width="20" :height="20" /> 
+              <span>
+                Views {{ data?.views }}
+              </span>
+            </div>
+            <div class="photo__downloads">
+              <IconUse id="download" :width="20" :height="20" /> 
+              <span>
+                Downloads {{ data?.downloads }}
+              </span>
+            </div>
+            <div class="photo__date-from-pub">
+              <IconUse id="calendar" :width="20" :height="20" /> 
+              <span>
+                {{ getTimeFromPublished(data.created_at) }}
+              </span>
+            </div>
           </div>
-          <h2>Tech info</h2>
+          <h2>Camera info</h2>
           <div class="photo__info--exif" v-if="data?.exif">
             <ul class="photo__exif">
               <li v-for="value, key in data.exif">
-                <NuxtLink :to="`/gallery/camera/${key}/${value}`">{{ value }}</NuxtLink>
+                {{ value }}
               </li>
             </ul>
           </div>
         </div>
-        <div class="photo__controls">
-          <div class="photo__controls--left">
-            <NuxtLink class="photo__download" :to="data?.links.download">Download</NuxtLink>
-            <NuxtLink class="photo__view" :to="data?.links.html">View on Unsplash</NuxtLink>
-          </div>
-          <div class="photo__controls--right">
-            <NuxtLink class="photo__download" :to="data?.links.download">Share</NuxtLink>
-          </div>
-        </div>
+        <ul class="photo__controls">
+          <li>
+            <NuxtLink class="photo__share" to="share">
+              <IconUse id="share" :width="20" :height="20" />
+              Share
+            </NuxtLink>
+          </li>
+          <li>
+            <NuxtLink class="photo__download" :to="data?.links.download">
+              <IconUse id="download" :width="20" :height="20" />
+              Download
+            </NuxtLink>
+          </li>
+          <li>
+            <NuxtLink class="photo__view" :to="data?.links.html">
+              <IconUse id="unsplash-icon" :width="20" :height="20" />
+              View on Unsplash
+            </NuxtLink>
+          </li>
+        </ul>
       </div>
     </div>
     <ul class="tags" v-if="data?.tags">
@@ -101,7 +127,7 @@ function handlePreviewLoaded() {
 
 <style scoped>
 h2, p {
-  margin: 0;
+  margin: 12px 0 5px 0;
   text-wrap: balance;
 }
 h2 {
@@ -139,5 +165,50 @@ h2 {
   flex-direction: column;
   justify-content: space-between;
 }
+.photo__info--base,
+.photo__exif,
+.photo__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  & > div {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 12px;
+    border-radius: 30px;
+    border: 1px solid var(--decoration-border-color);
+    box-shadow: 0 0 6px #0000000a;
+  }
+}
+
+.photo__exif,
+.photo__controls {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  li {
+    gap: 7px;
+    padding: 7px 12px;
+    border-radius: 30px;
+    border: 1px solid var(--decoration-border-color);
+    box-shadow: 0 0 6px #0000000a;
+    transform-origin: bottom;
+    transition: .2s ease;
+    &:hover,
+    &:focus {
+      background: var(--bg-color-11);
+      transform: scale(1.02);
+    }
+  }
+}
+
+.photo__controls a {
+  display: flex;
+  gap: 7px;
+  text-decoration: none;
+}
+
+
 
 </style>
