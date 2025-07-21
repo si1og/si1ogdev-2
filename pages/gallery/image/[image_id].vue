@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { NuxtLink } from '#components'
 import { formatDistanceToNow } from 'date-fns'
 
 import type { PhotoByAPI } from '~/types/photo'
@@ -6,6 +7,8 @@ import type { PhotoByAPI } from '~/types/photo'
 definePageMeta({
   layout: 'gallery'
 })
+
+const router = useRouter()
 
 const route = useRoute()
 const image_id = route.params.image_id as string
@@ -20,15 +23,73 @@ function getTimeFromPublished(published_at: string): string {
   })}`
 }
 
+
 const isPreviewLoaded = ref(false)
 
 function handlePreviewLoaded() {
   isPreviewLoaded.value = true
 }
+
+// Share Dialog Code
+
+const dialog = ref<HTMLDialogElement | null>(null)
+const isDialogOpen = ref(false)
+
+watchEffect(() => {
+  if (route.hash === '#share') {
+    isDialogOpen.value = true;
+  } else {
+    isDialogOpen.value = false;
+  }
+})
+
+function handleDialogClick(event: MouseEvent) {
+  if (dialog.value && event.target === dialog.value) {
+    isDialogOpen.value = false;
+  }
+}
+
+onMounted(() => {
+  if (!dialog.value) return
+  if (isDialogOpen.value) dialog.value?.showModal()
+
+  dialog.value.addEventListener('close', () => {
+    isDialogOpen.value = false
+  })
+  dialog.value.addEventListener('cancel', () => {
+    isDialogOpen.value = false
+  })
+  dialog.value.addEventListener('click', (e) => {
+    if (e.target === dialog.value) {
+      isDialogOpen.value = false
+    }
+  })
+})
+
+watch(isDialogOpen, (isOpen) => {
+  if (!isOpen && route.hash === '#share') {
+    router.replace({
+      path: route.path,
+      query: route.query
+    })
+
+    dialog.value?.close()
+  }
+
+  if (isOpen) {
+    dialog.value?.showModal()
+  }
+})
 </script>
 
 <template>
   <div class="photo-wrapper">
+    <div class="roting">
+      <button class="roting__back" @click="router.back()">
+        <IconUse id="back-arrow" :width="20" :height="20" /> 
+        <span>Return to previous page</span>
+      </button>
+    </div>
     <div class="sceleton" v-if="pending">
       <div class="sceleton__image animate"></div>
       <div class="sceleton__description">
@@ -108,7 +169,7 @@ function handlePreviewLoaded() {
         </div>
         <ul class="photo__controls">
           <li>
-            <NuxtLink class="photo__share" to="share">
+            <NuxtLink class="photo__share" :to="`${data?.id}#share`">
               <IconUse id="share" :width="20" :height="20" />
               Share
             </NuxtLink>
@@ -139,6 +200,17 @@ function handlePreviewLoaded() {
       </ul>
     </div>
   </div>
+  <dialog class="share-dialog" ref="dialog" @click="handleDialogClick">
+    <div class="share-dialog__content">
+      <header>
+        <h2>Share this photo</h2>
+        <button @click="isDialogOpen = false" autofocus>
+          <IconUse id="close" :width="15" :height="15" />
+        </button>
+      </header>
+      <input value="location.href" readonly />
+    </div>
+  </dialog>
 </template>
 
 <style scoped>
@@ -242,6 +314,54 @@ h2 {
   text-transform: uppercase;
 }
 
+.roting {
+  display: flex;
+  justify-content: space-between;
+}
 
+.share-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--decoration-border-color);
+  border-radius: 20px;
+  box-shadow: 0 0 10px #0000000a;
+  background: none;
+  transform: translate(-50%, -50%);
+}
 
+::backdrop {
+  background: #0000007a;
+  mask-image: radial-gradient(#0000006f, rgb(0, 0, 0));
+}
+
+.share-dialog__content {
+  background: var(--bg-color-2);
+  padding: 20px;
+  h2 {
+    margin: 0;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border: none;
+      border-radius: 50%;
+      background: transparent;
+      &:hover,
+      &:focus-visible {
+        background: var(--element-active-color);
+      }
+    }
+  }
+}
 </style>

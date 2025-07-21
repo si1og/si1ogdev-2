@@ -179,7 +179,7 @@ function copyToClipboard(text: string, id: string) {
       border-radius: 15px;
       &:hover,
       &:focus {
-        background: var(--bg-color-12);
+        background: var(--element-active-color);
       }
     }
   }

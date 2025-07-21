@@ -289,7 +289,7 @@ a {
       border-radius: 10px;
       &:hover,
       &:focus {
-        background: var(--bg-color-12);
+        background: var(--element-active-color);
       }
     }
   }
@@ -318,7 +318,7 @@ a {
   }
   &:has(:hover) .page-indicator__select,
   &:has(:focus) .page-indicator__select {
-    background: var(--bg-color-12);
+    background: var(--element-active-color);
     svg {
       rotate: 270deg;
       opacity: .5;

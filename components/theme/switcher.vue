@@ -73,7 +73,7 @@ onMounted(() => {
 .theme-switch:hover,
 .theme-switch--conteiner:has(button:focus) .theme-switch,
 .theme-switch--conteiner:has(.theme-switch__popover:hover) .theme-switch {
-  background: var(--bg-color-12);
+  background: var(--element-active-color);
 }
 
 .theme-switch__popover {
@@ -132,11 +132,11 @@ onMounted(() => {
 }
 
 .theme-switch__select-button:hover {
-  background: var(--bg-color-12);
+  background: var(--element-active-color);
 }
 
 .theme-switch__select-button.active {
-  background: var(--bg-color-12);
+  background: var(--element-active-color);
   font-weight: 500;
 }
 </style>

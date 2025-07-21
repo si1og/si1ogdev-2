@@ -35,7 +35,7 @@
   --bg-color-9: #2828281f;
   --bg-color-10: #b8b8b847;
   --bg-color-11: #ffffffda;
-  --bg-color-12: #00000011;
+  --element-active-color: #00000011;
   --bg-color-13: #474747;
   --bg-color-14: #f3f3f3;
   --bg-color-15: #ffffff;
@@ -75,7 +75,7 @@ html[data-theme=dark] {
   --bg-color-9: #cccccc1f;
   --bg-color-10: #a7a7a748;
   --bg-color-11: #202020cb;
-  --bg-color-12: #ffffff11;
+  --element-active-color: #ffffff11;
   --bg-color-13: #c9c9c9;
   --bg-color-14: #555555;
   --bg-color-15: #5c5c5c;
