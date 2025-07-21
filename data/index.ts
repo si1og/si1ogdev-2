@@ -80,31 +80,6 @@ export const findMyPhotosIn = [
   }
 ]
 
-export const contactsData = {
-  textLinks: [
-    {
-      text: '+7 (987) 887-87',
-      url: 'tel:+798788787',
-      icon: 'phone',
-    },
-    {
-      text: 'г. Санкт-Петербург, ул. Ленина, 9',
-      url: '#',
-      icon: 'location',
-    },
-  ],
-  social: [
-    {
-      url: '#',
-      icon: 'vk',
-    },
-    {
-      url: '#',
-      icon: 'x',
-    },
-  ],
-}
-
 export const footerData = {
   author: 'Al Asad Nur Riyad',
   aboutAuthor:
@@ -147,34 +122,16 @@ export const homePageSocial = [
   }
 ]
 
-export const blogsPage = {
-  title: 'All Blogs',
-  description: 'Here you will find all the blog posts I have written & published on this site.',
-}
-
-export const categoryPage = {
-  title: 'Categories',
-  description:
-    'Blow this category is generated from all the tags are mentioned in the different blog post',
-}
-
-export const aboutPage = {
-  title: 'Al Asad Nur Riyad',
-  description: 'Software Engineer, Problem Solver, Web Enthusiast.',
-  aboutMe:
-    "Hello, fellow human! I'm a software wizard who spends most of his day crafting code spells at @AppsCode in the Bytebuilders team. When I'm not crafting code, you can find me summoning solutions to problems on online judges. Just don't ask me to cast any love spells, my magic only works on machines!",
-}
-
 export const seoData = {
-  title: `Blog`,
-  ogTitle: `Blog`,
+  title: `Ilya Semenov`,
+  ogTitle: `Ilya Semenov`,
   description: `Blog Nuxt.js app`,
-  twitterDescription: `Riyad's Blog, where I play around with Nuxt, Vue, and more and showcase my blog, resources, etc - Riyads Blog | Riyad's Blog`,
+  twitterDescription: ``,
   image:
     'https://res.cloudinary.com/dmecmyphj/image/upload/v1673548905/nuxt-blog/cover_ntgs6u.webp',
-  mySite: 'https://blog-nurriyad.vercel.app',
-  twitterHandle: '@qdnvubp',
-  mailAddress: 'asadnurriyad@gmail.com',
+  mySite: 'https://si1ogdev.ru',
+  twitterHandle: '@silog_',
+  mailAddress: 'hi@s1og.ru',
 }
 
 // export const socialLinks = {

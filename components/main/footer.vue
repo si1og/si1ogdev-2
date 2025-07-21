@@ -33,6 +33,12 @@ defineProps<{
           <li v-for="item in licensing">
             <NuxtLink :to="item.link">{{ item.name }}</NuxtLink>
           </li>
+          <li>
+            <NuxtLink to="/sitemap" class="sitemap">
+              <IconUse id="web" :width="20" :height="20" /> 
+              Sitemap
+            </NuxtLink>
+          </li>
         </ul>
       </div>
     </div>
@@ -100,7 +106,7 @@ defineProps<{
     list-style: none;
     li {
       position: relative;
-      &:nth-of-type(n + 2)::before {
+      &:not(:first-of-type):not(:last-of-type)::before {
         position: absolute;
         left: -12px;
         top: 2px;
@@ -128,10 +134,26 @@ defineProps<{
   opacity: 0;
   filter: blur(1rem);
 }
+
+.sitemap {
+  display: flex;
+  gap: 5px;
+  padding: 7px 12px;
+  border-radius: 30px;
+  border: 1px solid var(--decoration-border-color);
+  box-shadow: 0 0 6px #0000000a;
+  transform-origin: bottom;
+  text-decoration: none;
+  &:hover,
+  &:focus {
+    background: var(--bg-color-11);
+    transform: scale(1.03);
+  }
+}
 </style>
 
 <style>
-  .footer svg {
+  .footer a:not(.sitemap) svg {
     color: var(--bg-color-1);
   }
 </style>
