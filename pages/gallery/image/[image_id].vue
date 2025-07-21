@@ -202,9 +202,7 @@ h2 {
   }
 }
 
-.photo__exif,
-.photo__controls,
-.tags {
+.photo__exif {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -219,16 +217,24 @@ h2 {
   }
 }
 
-:where(.photo__controls, .tags) li {
-  &:hover,
-  &:focus {
-    background: var(--bg-color-11);
-    transform: scale(1.03);
-  }
+:where(.photo__controls, .tags) {
+  margin: 0;
+  padding: 0;
+  list-style: none;
   a {
     display: flex;
     gap: 7px;
+    padding: 7px 12px;
+    border-radius: 30px;
+    border: 1px solid var(--decoration-border-color);
+    box-shadow: 0 0 6px #0000000a;
+    transform-origin: bottom;
     text-decoration: none;
+    &:hover,
+    &:focus {
+      background: var(--bg-color-11);
+      transform: scale(1.03);
+    }
   }
 }
 
