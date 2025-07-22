@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { homePage } from '~/data'
-import { homePageSocial, findMyPhotosIn } from '~/data'
+import { homePageSocial, findMyPhotosIn, homePage } from '~/data'
 
 const copiedId = ref<string | null>(null)
 
@@ -27,7 +26,7 @@ function copyToClipboard(text: string, id: string) {
         <h2>{{ homePage.title }}</h2>
         <p>{{ homePage.description }}</p>
         <ul class="description__connect" style="margin: 10px 0 0 0;">
-          <li v-for="item in homePageSocial">
+          <li v-for="item in homePageSocial" :key="item.name">
             <button v-if="item.link === 'copy-type'" class="copy" @click="copyToClipboard(item.tooltip, item.icon)">
               <IconUse :id="item.icon" :width="item.sizes[0]" :height="item.sizes[1]" />
               <span v-if="copiedId !== item.icon" class="tooltip">
@@ -56,7 +55,7 @@ function copyToClipboard(text: string, id: string) {
         <h2>Find my photos in</h2>
         <div>
           <ul>
-            <li v-for="item in findMyPhotosIn">
+            <li v-for="item in findMyPhotosIn" :key="item.name">
               <NuxtLink :to="item.link">
                 <span class="icon-cont">
                   <IconUse :id="item.icon" :width="item.sizes[0]" :height="item.sizes[1]" />

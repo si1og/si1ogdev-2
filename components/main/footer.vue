@@ -12,7 +12,7 @@ defineProps<{
       <IconLogo />
       <nav>
         <ul>
-          <li v-for="social in socialLinks" :class="social.icon">
+          <li v-for="social in socialLinks" :key="social.name" :class="social.icon">
             <NuxtLink :to="`${social.link}`">
               <IconUse :id="social.icon" :width="social.sizes[0]" :height="social.sizes[1]" />
               <span class="tooltip ex-link">
@@ -30,7 +30,7 @@ defineProps<{
           © 2025 · Ilya Semenov
         </span>
         <ul>
-          <li v-for="item in licensing">
+          <li v-for="item in licensing" :key="item.name">
             <NuxtLink :to="item.link">{{ item.name }}</NuxtLink>
           </li>
           <li>
@@ -85,6 +85,7 @@ defineProps<{
   position: relative;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
   margin: 15px 0 0 0;
   &::before {

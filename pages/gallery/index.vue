@@ -69,6 +69,7 @@ onNuxtReady(() => {
     <div class="image-grid">
       <GalleryImage
         v-for="photo in photos"
+        :key="photo.id"
         :image_id="photo.id"
         :src="photo.sizes.small"
         :alt="photo.alt_description"

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { navbarData } from '~/data'
+// import { navbarData } from '~/data'
 
 useHead({
   title: 'Главная',

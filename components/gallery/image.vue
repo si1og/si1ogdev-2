@@ -18,6 +18,7 @@ defineProps<{
     <NuxtImg
       :src="src"
       :alt="alt || 'Photo'"
+      :key="image_id"
       loading="lazy"
       decoding="async"
       class="gallery-img animate"

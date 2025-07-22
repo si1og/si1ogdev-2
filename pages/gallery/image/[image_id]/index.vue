@@ -14,7 +14,8 @@ const route = useRoute()
 const image_id = route.params.image_id as string
 
 const { data, error, pending } = await useLazyFetch<PhotoByAPI>('/api/photo', {
-  query: { id: image_id }
+  query: { id: image_id },
+  key: `photo-${image_id}`
 })
 
 function getTimeFromPublished(published_at: string): string {
@@ -90,7 +91,7 @@ watch(isDialogOpen, (isOpen) => {
         <span>Return to previous page</span>
       </button>
     </div>
-    <div class="sceleton" v-if="pending">
+    <div v-if="pending" class="sceleton">
       <div class="sceleton__image animate"></div>
       <div class="sceleton__description">
         <div class="sceleton__stats">
@@ -108,10 +109,11 @@ watch(isDialogOpen, (isOpen) => {
     <div v-else-if="error">
       <p class="error">Ошибка: {{ error.statusCode }} – {{ error.statusMessage }}</p>
     </div>
-    <div class="photo" v-else>
+    <div v-else class="photo">
       <div class="photo__image photo__image--stacked" :class="data?.orientation" :style="`aspect-ratio: ${data?.aspect_ratio};`">
         <NuxtImg
           v-if="data"
+          :key="data.id"
           :src="data.sizes.small"
           :alt="data.alt_description || 'Photo preview'"
           class="preview-img animate"
@@ -124,6 +126,7 @@ watch(isDialogOpen, (isOpen) => {
         />
         <NuxtImg
           v-if="data && isPreviewLoaded"
+          :key="data.id"
           :src="data.sizes.full_hd"
           :alt="data.alt_description || 'Photo'"
           fit="cover"
@@ -138,7 +141,7 @@ watch(isDialogOpen, (isOpen) => {
       <div class="photo__about">
         <div class="photo__info">
           <h2>Stats</h2>
-          <div class="photo__info--base" v-if="data?.created_at">
+          <div v-if="data?.created_at" class="photo__info--base">
             <div class="photo__views">
               <IconUse id="views" :width="20" :height="20" /> 
               <span>
@@ -159,9 +162,9 @@ watch(isDialogOpen, (isOpen) => {
             </div>
           </div>
           <h2>Camera info</h2>
-          <div class="photo__info--exif" v-if="data?.exif">
+          <div v-if="data?.exif" class="photo__info--exif">
             <ul class="photo__exif">
-              <li v-for="value, key in data.exif">
+              <li v-for="value, key in data.exif" :key="key">
                 {{ value }}
               </li>
             </ul>
@@ -189,28 +192,28 @@ watch(isDialogOpen, (isOpen) => {
         </ul>
       </div>
     </div>
-    <div class="tags-conteiner" v-if="data?.tags.length">
+    <div v-if="data?.tags.length" class="tags-conteiner">
       <h2>Tags</h2>
       <ul class="tags">
-        <li class="tags__item" v-for="tag in data.tags">
+        <li v-for="tag in data.tags" :key="tag.title" class="tags__item">
           <NuxtLink :to="`/gallery/tag/${tag.title}`">
             <span>{{ tag.title }}</span>
           </NuxtLink>
         </li>
       </ul>
     </div>
+    <dialog ref="dialog" class="share-dialog" @click="handleDialogClick">
+      <div class="share-dialog__content">
+        <header>
+          <h2>Share this photo</h2>
+          <button autofocus @click="isDialogOpen = false">
+            <IconUse id="close" :width="15" :height="15" />
+          </button>
+        </header>
+        <input value="location.href" readonly />
+      </div>
+    </dialog>
   </div>
-  <dialog class="share-dialog" ref="dialog" @click="handleDialogClick">
-    <div class="share-dialog__content">
-      <header>
-        <h2>Share this photo</h2>
-        <button @click="isDialogOpen = false" autofocus>
-          <IconUse id="close" :width="15" :height="15" />
-        </button>
-      </header>
-      <input value="location.href" readonly />
-    </div>
-  </dialog>
 </template>
 
 <style scoped>
