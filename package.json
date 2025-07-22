@@ -42,10 +42,12 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/google-fonts": "^3.2.0",
+    "@pinia/nuxt": "^0.11.2",
     "date-fns": "^4.1.0",
     "mysql2": "^3.14.1",
     "node-cron": "^4.1.0",
     "nprogress": "^0.2.0",
+    "pinia": "^3.0.3",
     "vue": "^3.5.17"
   }
 }

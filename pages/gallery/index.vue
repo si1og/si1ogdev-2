@@ -1,9 +1,13 @@
 <script setup lang="ts">
+import { useGalleryStore } from '~/stores/gallery'
+
 import type { Photo } from '~/types/photo'
 
 definePageMeta({
   layout: 'gallery'
 })
+
+// const store = useGalleryStore()
 
 const page = ref(1)
 const photos = ref<Photo[]>([])
