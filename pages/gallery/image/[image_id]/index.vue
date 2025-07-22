@@ -90,26 +90,24 @@ watch(isDialogOpen, (isOpen) => {
         <IconUse id="back-arrow" :width="20" :height="20" /> 
         <span>Return to previous page</span>
       </button>
-    </div>
-    <div v-if="pending" class="sceleton">
-      <div class="sceleton__image animate"></div>
-      <div class="sceleton__description">
-        <div class="sceleton__stats">
-          <div class="sceleton__panel animate" style="width: 139px;"></div>
-          <div class="sceleton__panel animate" style="width: 100px;"></div>
-          <div class="sceleton__panel animate" style="width: 100px;"></div>
+      <div v-if="pending" class="loading-handle">
+        <div class="loading-handle__msg">
+          Getting data from server...
         </div>
-        <div class="sceleton__info">
-          <div class="sceleton__panel animate" style="width: 100px;"></div>
-          <div class="sceleton__panel animate" style="width: 100px;"></div>
-          <div class="sceleton__panel animate" style="width: 100px;"></div>
+        <div class="loading-animation">
+          <span class="animation">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
         </div>
       </div>
     </div>
-    <div v-else-if="error">
+    <div v-if="error">
       <p class="error">Ошибка: {{ error.statusCode }} – {{ error.statusMessage }}</p>
     </div>
-    <div v-else class="photo">
+    <div v-else-if="!pending" class="photo">
       <div class="photo__image photo__image--stacked" :class="data?.orientation" :style="`aspect-ratio: ${data?.aspect_ratio};`">
         <NuxtImg
           v-if="data"
@@ -191,29 +189,29 @@ watch(isDialogOpen, (isOpen) => {
           </li>
         </ul>
       </div>
-    </div>
-    <div v-if="data?.tags.length" class="tags-conteiner">
-      <h2>Tags</h2>
-      <ul class="tags">
-        <li v-for="tag in data.tags" :key="tag.title" class="tags__item">
-          <NuxtLink :to="`/gallery/tag/${tag.title}`">
-            <span>{{ tag.title }}</span>
-          </NuxtLink>
-        </li>
-      </ul>
-    </div>
-    <dialog ref="dialog" class="share-dialog" @click="handleDialogClick">
-      <div class="share-dialog__content">
-        <header>
-          <h2>Share this photo</h2>
-          <button autofocus @click="isDialogOpen = false">
-            <IconUse id="close" :width="15" :height="15" />
-          </button>
-        </header>
-        <input value="location.href" readonly />
+      <div v-if="data?.tags.length" class="tags-conteiner">
+        <h2>Tags</h2>
+        <ul class="tags">
+          <li v-for="tag in data.tags" :key="tag.title" class="tags__item">
+            <NuxtLink :to="`/gallery/tag/${tag.title}`">
+              <span>{{ tag.title }}</span>
+            </NuxtLink>
+          </li>
+        </ul>
       </div>
-    </dialog>
-  </div>
+      <dialog ref="dialog" class="share-dialog" @click="handleDialogClick">
+        <div class="share-dialog__content">
+          <header>
+            <h2>Share this photo</h2>
+            <button autofocus @click="isDialogOpen = false">
+              <IconUse id="close" :width="15" :height="15" />
+            </button>
+          </header>
+          <input value="location.href" readonly />
+        </div>
+      </dialog>
+    </div>
+    </div>
 </template>
 
 <style scoped>
@@ -230,10 +228,11 @@ h2 {
   position: relative;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 30px 0;
+  padding: 20px 0;
 }
 
-.photo {
+.photo,
+.sceleton {
   display: grid;
   grid-template-columns: 1fr 215px;
   gap: 20px;
@@ -319,7 +318,25 @@ h2 {
 
 .roting {
   display: flex;
-  justify-content: space-between;
+  gap: 10px;
+}
+
+.roting__back,
+.loading-handle__msg {
+  display: flex;
+  gap: 7px;
+  margin: 0 0 10px 0;
+  padding: 2px 10px;
+  border-radius: 30px;
+  border: 1px solid var(--decoration-border-color);
+  box-shadow: 0 0 6px #0000000a;
+  transform-origin: bottom;
+  background: transparent;
+  font-size: 18px;
+  &:hover,
+  &:focus {
+    transform: scale(1.03);
+  }
 }
 
 .share-dialog {
@@ -366,5 +383,66 @@ h2 {
       }
     }
   }
+}
+.loading-handle {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.loading-animation {
+  position: relative;
+  top: -4px;
+	width: 30px;
+	height: 30px;
+	border-radius: 25px;
+	box-shadow: 0 0 6px #0000000a;
+  border: 1px solid var(--decoration-border-color);
+}
+.loading-animation .animation {
+	top: -9px;
+	left: -3px;
+}
+.animation {
+	display: inline-block;
+	position: relative;
+	width: 10px;
+	height: 10px;
+}
+.animation span {
+	position: absolute;
+	box-sizing: border-box;
+	display: block;
+	width: 18px;
+	height: 18px;
+	margin: 8px;
+	border: 2px solid #fff;
+	border-radius: 50%;
+	animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+	border-color: var(--text-color-1) transparent transparent transparent;
+}
+.animation span:nth-child(1) {
+	animation-delay: -0.45s;
+}
+.animation span:nth-child(2) {
+	animation-delay: -0.3s;
+}
+.animation span:nth-child(3) {
+	animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+@keyframes modal-background-add {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
 }
 </style>
