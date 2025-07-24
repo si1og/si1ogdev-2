@@ -22,5 +22,8 @@ useHead({
 </script>
 
 <template>
-  <MainHero />
+  <div class="content">
+    <MainHero />
+    <MainExplore />
+  </div>
 </template>

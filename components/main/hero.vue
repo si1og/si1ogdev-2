@@ -106,6 +106,7 @@ const { data, error, pending } = await useLazyFetch<Stats>('/api/stats', {server
   display: flex;
   flex-direction: column;
   gap: 30px;
+  margin-bottom: 85px;
 }
 
 .main-content__title {
