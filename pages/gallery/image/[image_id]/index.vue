@@ -13,6 +13,12 @@ const previousUrl = (router.options.history.state as {back?: string}).back
 
 const route = useRoute()
 const image_id = route.params.image_id as string
+let currentPath = route.path
+
+const shareText = ''
+
+if (import.meta.client) currentPath = window.location.origin + currentPath
+
 
 const { data, error, pending } = await useLazyFetch<PhotoByAPI>('/api/photo', {
   query: { id: image_id },
@@ -82,6 +88,18 @@ watch(isDialogOpen, (isOpen) => {
     dialog.value?.showModal()
   }
 })
+
+const isCopied = ref<boolean>(false)
+
+function copyToClipboard(text: string) {
+  navigator.clipboard.writeText(text).then(() => {
+    isCopied.value = true
+    
+    setTimeout(() => {
+      isCopied.value = false
+    }, 1500)
+  })
+}
 </script>
 
 <template>
@@ -208,7 +226,54 @@ watch(isDialogOpen, (isOpen) => {
               <IconUse id="close" :width="15" :height="15" />
             </button>
           </header>
-          <input value="location.href" readonly />
+          <main>
+            <ul>
+              <li>
+                <NuxtLink
+                  :to="`https://t.me/share/url?url=${currentPath}&text=${shareText}`"
+                  target="_blank"
+                  rel="noopener"
+                  >
+                  <IconUse id="telegram" :width="20" :height="20" />
+                  Share to Telegram
+                </NuxtLink>
+              </li>
+              <li>
+                <NuxtLink
+                  :to="`https://wa.me/?text=${currentPath}`"
+                  target="_blank"
+                  rel="noopener"
+                  >
+                  <IconUse id="whatsapp" :width="20" :height="20" />
+                  Share to WhatsApp
+                </NuxtLink>
+              </li>
+              <li>
+                <NuxtLink
+                  :to="`mailto:?subject=${shareText}&body=${currentPath}`"
+                  target="_blank"
+                  rel="noopener"
+                  >
+                  <IconUse id="mail" :width="20" :height="20" />
+                  Share via Email
+                </NuxtLink>
+              </li>
+            </ul>
+            <div class="manual-share">
+              <span class="manual-share__url">
+                {{ currentPath  }}
+              </span>
+              <button class="manual-sahre__copy" @click="copyToClipboard(currentPath)">
+                <div v-if="!isCopied" class="manual-sahre__button-value">
+                  <IconUse id="copy" :width="20" :height="20" />
+                  Copy!
+                </div>
+                <div v-else class="manual-sahre__button-value">
+                  Copied!
+                </div>
+              </button>
+            </div>
+          </main>
         </div>
       </dialog>
     </div>
@@ -323,7 +388,8 @@ h2 {
 }
 
 .roting__back,
-.loading-handle__msg {
+.loading-handle__msg,
+.manual-sahre__copy {
   display: flex;
   gap: 7px;
   margin: 0 0 10px 0;
@@ -364,7 +430,7 @@ h2 {
   background: var(--bg-color-2);
   padding: 20px;
   h2 {
-    margin: 0;
+    margin: 0 0 15px 0;
   }
   header {
     display: flex;
@@ -380,11 +446,77 @@ h2 {
       border: none;
       border-radius: 50%;
       background: transparent;
+      color: var(--text-color-1);
       &:hover,
       &:focus-visible {
         background: var(--element-active-color);
       }
     }
+  }
+  main {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    ul {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      li {
+        padding: 0;
+        &:last-of-type:nth-of-type(2n+1) {
+          grid-column-start: 1;
+          grid-column-end: 3;
+        }
+        a {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 5px 10px 5px 5px;
+          border: 1px solid var(--decoration-border-color);
+          border-radius: 30px;
+          box-shadow: 0 0 6px #0000000a;
+          background: var(--bg-color-1);
+          transform-origin: bottom;
+          text-decoration: none;
+          &:hover,
+          &:focus {
+            background: var(--bg-color-11);
+          }
+          .icon {
+            padding: 7px;
+            border: 1px solid var(--text-color-1);
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+  }
+}
+.manual-share {
+  display: flex;
+  gap: 10px;
+}
+.manual-share__url {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 30px;
+  background: var(--element-active-color);
+  color: color-mix(in srgb, var(--text-color-1) 40%, transparent 60%);
+}
+.manual-sahre__copy {
+  justify-content: center;
+  min-width: 100px;
+  margin: 0;
+  padding: 8px 12px;
+  div {
+    display: flex;
+    align-items: center;
+    gap: 7px;
   }
 }
 .loading-handle {

@@ -19,7 +19,7 @@ export const socialLinks = [
   },
   {
     name: 'Telegram',
-    icon: 'telegram-icon',
+    icon: 'telegram',
     link: 'https://t.me/si1og',
     tooltip: 'si1og',
     sizes: [20,20]
@@ -68,7 +68,7 @@ export const licensing = [
 export const findMyPhotosIn = [
   {
     name: 'Telegram',
-    icon: 'telegram-icon',
+    icon: 'telegram',
     link: 'https://t.me/si1og_phograhpy',
     sizes: [25,25]
   },
@@ -115,7 +115,7 @@ export const homePageSocial = [
   },
   {
     name: 'Mail',
-    icon: 'mail-icon',
+    icon: 'mail',
     link: 'copy-type',
     tooltip: 'hi@si1og.ru',
     sizes: [20,20]
