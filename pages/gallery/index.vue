@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useGalleryStore } from '~/stores/gallery'
+// import { useGalleryStore } from '~/stores/gallery'
 
 import type { Photo } from '~/types/photo'
 
@@ -7,7 +7,7 @@ definePageMeta({
   layout: 'gallery'
 })
 
-// const store = useGalleryStore()
+// const store = useGalleryStore(pinia)
 
 const page = ref(1)
 const photos = ref<Photo[]>([])

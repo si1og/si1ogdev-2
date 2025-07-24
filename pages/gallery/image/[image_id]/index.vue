@@ -9,6 +9,7 @@ definePageMeta({
 })
 
 const router = useRouter()
+const previousUrl = (router.options.history.state as {back?: string}).back
 
 const route = useRoute()
 const image_id = route.params.image_id as string
@@ -86,10 +87,10 @@ watch(isDialogOpen, (isOpen) => {
 <template>
   <div class="photo-wrapper">
     <div class="roting">
-      <button class="roting__back" @click="router.back()">
+      <NuxtLink class="roting__back" :to="previousUrl ? previousUrl : '/gallery'">
         <IconUse id="back-arrow" :width="20" :height="20" /> 
-        <span>Return to previous page</span>
-      </button>
+        <span>{{ previousUrl ? 'Back to previous page' : 'Go to gallery' }}</span>
+      </NuxtLink>
       <div v-if="pending" class="loading-handle">
         <div class="loading-handle__msg">
           Getting data from server...
@@ -333,9 +334,11 @@ h2 {
   transform-origin: bottom;
   background: transparent;
   font-size: 18px;
+  text-decoration: none;
   &:hover,
   &:focus {
     transform: scale(1.03);
+    background: var(--bg-color-11);
   }
 }
 
@@ -444,5 +447,8 @@ h2 {
 	100% {
 		opacity: 1;
 	}
+}
+.preview-img {
+  color: transparent;
 }
 </style>
