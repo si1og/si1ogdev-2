@@ -430,13 +430,14 @@ h2 {
   background: var(--bg-color-2);
   padding: 20px;
   h2 {
-    margin: 0 0 15px 0;
+    margin: 0
   }
   header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 20px;
+    margin: 0 0 15px 0;
     button {
       display: flex;
       align-items: center;

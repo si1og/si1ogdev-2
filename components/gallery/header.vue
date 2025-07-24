@@ -60,7 +60,7 @@ onUnmounted(() => {
           </button>
           <div class="page-indicator__popup--hover">
             <ul class="page-indicator__popup">
-              <li v-for="key in otherNavKeys">
+              <li v-for="key in otherNavKeys" :key="key">
                 <NuxtLink :to="`/${key}`" :class="key" > 
                   {{ navbarData[key].text }}
                 </NuxtLink>
@@ -71,7 +71,7 @@ onUnmounted(() => {
       </div>
       <nav>
         <ul>
-          <li class="year" :class="`year-${year}`" v-for="year in [2025, 2024, 2023]">
+          <li v-for="year in [2025, 2024, 2023]" :key="year" class="year" :class="`year-${year}`">
             <NuxtLink :to="`/gallery/${year}`" :class="{ underline: isActive(`/${year}`) }"> 
               {{ year }}
             </NuxtLink>
