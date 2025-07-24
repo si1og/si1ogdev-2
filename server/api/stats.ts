@@ -6,12 +6,20 @@ import type { Stats } from '~/types/stats'
 export default defineEventHandler(async () => {
   const accessKey = process.env.UNSPLASH_ACCESS_KEY
   const username = process.env.UNSPLASH_USERNAME
+  let res
 
-  const res = await $fetch<any>(`https://api.unsplash.com/users/${username}/statistics`, {
-    headers: {
-      Authorization: `Client-ID ${accessKey}`
-    }
-  })
+  try {
+    res = await $fetch(`https://api.unsplash.com/users/${username}/statistics`, {
+      headers: {
+        Authorization: `Client-ID ${accessKey}`
+      }
+    })
+  } catch {
+    throw createError({
+      statusCode: 500,
+      statusMessage: 'Failed to fetch photo data'
+    })
+  }
   
   const stats: Stats = {
     views: res.views.total,

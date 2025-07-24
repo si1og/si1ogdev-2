@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { homePageSocial, findMyPhotosIn, homePage } from '~/data'
 
+import type { Stats } from '~/types/stats'
+
 const copiedId = ref<string | null>(null)
 
 function copyToClipboard(text: string, id: string) {
@@ -12,6 +14,19 @@ function copyToClipboard(text: string, id: string) {
     }, 1500)
   })
 }
+
+function convertDownloads(count: number): string {
+  const rounded = Math.floor(count / 100) * 100
+  return `${rounded.toLocaleString()}+`
+}
+
+function convertViews(count: number): string {
+  const rounded = Math.floor(count / 10000) * 10000
+  return `${rounded.toLocaleString()}+`
+}
+
+const { data, error, pending } = await useLazyFetch<Stats>('/api/stats', {server: false})
+
 </script>
 
 <template>
@@ -66,6 +81,22 @@ function copyToClipboard(text: string, id: string) {
           </ul>
         </div>
       </div>
+      <div v-if="!error" class="description__unsplash">
+        <p>
+          😱 Currently my photos on upspash have 
+          <span class="views">
+            <span v-if="pending" class="skeleton animate">290,000+</span>
+            <span v-if="data?.views">{{ convertViews(data.views) }}</span>
+          </span> 
+          views and 
+          <span class="downloads">
+            <span v-if="pending" class="skeleton animate">1,500+</span>
+            <span v-if="data?.downloads">{{ convertDownloads(data.downloads) }}</span>
+          </span> 
+          downloads!
+        </p>
+        <IconUse id="arrow-1" class="arrow" :width="80" :height="80" />
+      </div>
     </div>
   </div>
 </template>
@@ -103,12 +134,14 @@ function copyToClipboard(text: string, id: string) {
   pointer-events: none;
 }
 .description {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr 250px;
   gap: 20px;
 }
 .description__info,
-.description__photo-social {
+.description__photo-social,
+.description__unsplash {
   background: var(--bg-color-1);
   padding: 20px;
   border-radius: 30px;
@@ -181,6 +214,25 @@ function copyToClipboard(text: string, id: string) {
         background: var(--element-active-color);
       }
     }
+  }
+}
+.description__unsplash {
+  position: absolute;
+  bottom: -20px;
+  right: 130px;
+  transform: translateY(100%);
+  .skeleton {
+    color: transparent;
+    user-select: none;
+  }
+  .arrow {
+    position: absolute;
+    right: -79px;
+    top: -32px;
+    transform: rotate(-40deg);
+  }
+  p {
+    text-align: right;
   }
 }
 </style>
