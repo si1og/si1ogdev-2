@@ -1,5 +1,17 @@
 import { defineEventHandler, getQuery } from 'h3'
 import { $fetch } from 'ofetch'
+import db from '~/server/utils/db'
+
+import type { DbCacheMeta } from '~/types/db_interface'
+
+async function getMeta() {
+  const [meta] = await db.query<DbCacheMeta[]>(
+    'SELECT updated_at FROM cache_meta WHERE id = ?',
+    ['photos']
+  )
+
+  return meta
+}
 
 export default defineEventHandler(async (event) => {
   const accessKey = process.env.UNSPLASH_ACCESS_KEY
@@ -8,6 +20,20 @@ export default defineEventHandler(async (event) => {
   const query = getQuery(event)
   const page = query.page ? Number(query.page) : 1
   const perPage = 15
+
+  let meta = await getMeta()
+
+  if (meta.length === 0) {
+    await db.query(
+      'INSERT INTO cache_meta (id, updated_at) VALUES (?, NOW())',
+      ['photos']
+    )
+    
+    meta = await getMeta()
+  }
+
+  console.log(meta)
+
 
   let res: any[]
 
