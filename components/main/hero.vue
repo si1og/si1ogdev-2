@@ -85,12 +85,12 @@ const { data, error, pending } = await useLazyFetch<Stats>('/api/stats', {server
         <p>
           😱 Currently my photos on upspash have 
           <span class="views">
-            <span v-if="pending" class="skeleton animate">290,000+</span>
+            <span v-if="pending && !data?.views" class="skeleton animate">290,000+</span>
             <span v-if="data?.views">{{ convertViews(data.views) }}</span>
           </span> 
           views and 
           <span class="downloads">
-            <span v-if="pending" class="skeleton animate">1,500+</span>
+            <span v-if="pending && !data?.downloads" class="skeleton animate">1,500+</span>
             <span v-if="data?.downloads">{{ convertDownloads(data.downloads) }}</span>
           </span> 
           downloads!

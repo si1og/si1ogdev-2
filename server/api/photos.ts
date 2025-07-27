@@ -1,80 +1,52 @@
 import { defineEventHandler, getQuery } from 'h3'
-import { $fetch } from 'ofetch'
+
 import db from '~/server/utils/db'
 
-import type { DbCacheMeta } from '~/types/db_interface'
+async function getPhotosFromDB(
+  page: number = 1,
+  perPage: number = 30,
+  year?: number
+): Promise<any[]> {
+  const offset = (page - 1) * perPage
 
-async function getMeta() {
-  const [meta] = await db.query<DbCacheMeta[]>(
-    'SELECT updated_at FROM cache_meta WHERE id = ?',
-    ['photos']
-  )
+  let query = 'SELECT * FROM photos'
+  const params: any[] = []
 
-  return meta
+  if (year) {
+    query += ' WHERE YEAR(created_at) = ?'
+    params.push(year)
+  }
+
+  query += ' ORDER BY created_at DESC LIMIT ? OFFSET ?'
+  params.push(perPage, offset)
+
+  const [results] = await db.query<any[]>(query, params)
+  return results
 }
 
-export default defineEventHandler(async (event) => {
-  const accessKey = process.env.UNSPLASH_ACCESS_KEY
-  const username = process.env.UNSPLASH_USERNAME
 
+export default defineEventHandler(async (event) => {
   const query = getQuery(event)
   const page = query.page ? Number(query.page) : 1
-  const perPage = 15
+  const perPage = 20
+  const year = query.year ? Number(query.year) : 0
 
-  let meta = await getMeta()
-
-  if (meta.length === 0) {
-    await db.query(
-      'INSERT INTO cache_meta (id, updated_at) VALUES (?, NOW())',
-      ['photos']
-    )
-    
-    meta = await getMeta()
-  }
-
-  console.log(meta)
-
-
-  let res: any[]
-
-  try {
-    res = await $fetch(`https://api.unsplash.com/users/${username}/photos`, {
-      params: {
-        per_page: perPage,
-        page,
-        order_by: 'latest',
-      },
-      headers: {
-        Authorization: `Client-ID ${accessKey}`
-      }
-    })
-  } catch (err: any) {
-    if (err?.response?.status === 404) {
-      throw createError({
-        statusCode: 404,
-        statusMessage: 'Image not found'
-      })
-    }
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'Failed to fetch photo data'
-    })
-  }
+  const res = await getPhotosFromDB(page, perPage, year)
 
   const photos = res.map(photo => ({
     id: photo.id,
     alt_description: photo.alt_description,
     created_at: photo.created_at,
-    orientation: photo.width > photo.height ? 'landscape' : 'portrait',
-    previewUrl: `${photo.urls.raw}&w=32&h=32&q=10&fit=crop`,
+    orientation: photo.orientation,
+    previewUrl: photo.preview_url,
     sizes: {
-      thumb: photo.urls.thumb,
-      small: photo.urls.small,
-      full: photo.urls.full,
+      thumb: photo.thumb_url,
+      small: photo.small_url,
+      full: photo.full_url,
       blurHash: photo.blur_hash
     },
     links: {
-      download: photo.links.download
+      download: photo.download_link
     }
   }))
 
