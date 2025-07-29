@@ -17,13 +17,13 @@ export default <RouterConfig>{
     // The remainder is optional but maybe useful as well
 
     // if link is to same page, scroll to top with smooth behavior
-    if (to === from) {
-      return {
-        left: 0,
-        top: 0,
-        behavior: 'smooth',
-      }
-    }
+    // if (to === from) {
+    //   return {
+    //     left: 0,
+    //     top: 0,
+    //     behavior: 'smooth',
+    //   }
+    // }
 
     // this will use saved scroll position on browser forward/back navigation
     return new Promise((resolve) => {

@@ -45,7 +45,6 @@ const observer = ref<IntersectionObserver>()
 
 onMounted(async () => {
   if (!store.photos) await fetchPhotos()
-
   // window.scrollTo({ top: store.scrollY, behavior: 'auto' })
 
   const sentinel = document.getElementById('scroll-sentinel')

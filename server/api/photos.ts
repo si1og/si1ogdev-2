@@ -8,7 +8,6 @@ async function getPhotosFromDB(
   year?: number
 ): Promise<any[]> {
   const offset = (page - 1) * perPage
-  console.log(offset)
 
   let query = 'SELECT * FROM photos'
   const params: any[] = []
