@@ -27,7 +27,7 @@ defineProps<{
       </nav>
       <div class="licensing">
         <span class="copyright">
-          © 2025 · Ilya Semenov
+          © {{ new Date().getFullYear() }} · Ilya Semenov
         </span>
         <ul>
           <li v-for="item in licensing" :key="item.name">

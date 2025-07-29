@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useGalleryStore } from '~/stores/gallery'
+// import { galleryContent } from '~/data/gallery'
 
 import type { Photo } from '~/types/photo'
 
