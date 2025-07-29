@@ -41,6 +41,18 @@ defineProps<{
           </li>
         </ul>
       </div>
+      <div class="unsplash">
+        <ul>
+          <li>
+            <NuxtLink to="https://github.com/si1og/si1ogdev-2" >Handcrafted by me</NuxtLink>
+          </li>
+          <li>
+            Powered by
+            <NuxtLink to="https://unsplash.com/developers" >Unsplash API</NuxtLink>
+            to display images
+          </li>
+        </ul>
+      </div>
     </div>
   </footer>
 </template>
@@ -53,6 +65,7 @@ defineProps<{
   border-top: 1px solid var(--decoration-border-color);
 
   &>div {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -81,7 +94,8 @@ defineProps<{
   }
 }
 
-.licensing {
+.licensing,
+.unsplash {
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -105,14 +119,23 @@ defineProps<{
     margin: 0;
     padding: 0;
     list-style: none;
-    li {
-      position: relative;
-      &:not(:first-of-type):not(:last-of-type)::before {
-        position: absolute;
-        left: -12px;
-        top: 2px;
-        content: "·";
-      }
+  }
+}
+
+.unsplash {
+  font-size: 16px;
+  margin: 5px !important;
+  justify-content: center !important;
+  a {
+    font-size: inherit;
+  }
+  li {
+    position: relative;
+    &:not(:first-of-type)::before {
+      position: absolute;
+      left: -12px;
+      top: 2px;
+      content: "·";
     }
   }
 }

@@ -58,11 +58,7 @@ export const licensing = [
   {
     name: 'Terms of Use',
     link: 'terms-of-use',
-  },
-  {
-    name: 'Handcrafted by me',
-    link: 'https://github.com/si1og/si1ogdev-2',
-  },
+  }
 ]
 
 export const findMyPhotosIn = [
