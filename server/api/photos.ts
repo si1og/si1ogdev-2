@@ -8,6 +8,7 @@ async function getPhotosFromDB(
   year?: number
 ): Promise<any[]> {
   const offset = (page - 1) * perPage
+  console.log(offset)
 
   let query = 'SELECT * FROM photos'
   const params: any[] = []
@@ -17,7 +18,7 @@ async function getPhotosFromDB(
     params.push(year)
   }
 
-  query += ' ORDER BY created_at DESC LIMIT ? OFFSET ?'
+  query += ' ORDER BY created_at DESC, id DESC LIMIT ? OFFSET ?'
   params.push(perPage, offset)
 
   const [results] = await db.query<any[]>(query, params)

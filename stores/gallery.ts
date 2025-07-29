@@ -1,37 +1,34 @@
 import { defineStore } from 'pinia'
 import type { Photo } from '~/types/photo'
 
-interface GalleryState {
-  photos: Photo[]
-  page: number
-  isEndReached: boolean
-}
+export const useGalleryStore = defineStore('gallery', () => {
+  const page = ref(1)
+  const photos = ref<Photo[]>([])
+  const isEndReached = ref(false)
+  const scrollY = ref(0)
 
+  function addPhoto(photo: Photo) {
+    photos.value.push(photo)
+  }
 
-export const useGalleryStore = defineStore('gallery', {
-  state: (): GalleryState => ({
-    photos: [] as Photo[],
-    page: 1,
-    isEndReached: false
-  }),
-  actions: {
-    setPhotos(photos: Photo[]) {
-      this.photos = photos
-    },
-    addPhoto(photo: Photo) {
-      this.photos.push(photo)
-    },
-    incrementPage() {
-      this.page++
-    },
-    setEndReached(value: boolean) {
-      this.isEndReached = value
-    },
-    reset() {
-      this.photos = []
-      this.page = 1
-      this.isEndReached = false
-    }
-  },
-  persist: true
+  function incrementPage() {
+    page.value++
+  }
+
+  function resetGallery() {
+    page.value = 1
+    photos.value = []
+    isEndReached.value = false
+    scrollY.value = 0
+  }
+
+  return {
+    page,
+    photos,
+    isEndReached,
+    scrollY,
+    addPhoto,
+    incrementPage,
+    resetGallery
+  }
 })

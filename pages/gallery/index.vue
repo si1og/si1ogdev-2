@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// import { useGalleryStore } from '~/stores/gallery'
+import { useGalleryStore } from '~/stores/gallery'
 
 import type { Photo } from '~/types/photo'
 
@@ -7,10 +7,8 @@ definePageMeta({
   layout: 'gallery'
 })
 
-// const store = useGalleryStore(pinia)
+const store = useGalleryStore()
 
-const page = ref(1)
-const photos = ref<Photo[]>([])
 const isLoading = ref(false)
 const isEndReached = ref(false)
 
@@ -18,7 +16,7 @@ async function fetchPhotos() {
   isLoading.value = true
 
   const { data } = await useLazyFetch<Photo[]>('/api/photos', {
-    query: { page: page.value },
+    query: { page: store.page },
     default: () => []
   })
 
@@ -27,7 +25,7 @@ async function fetchPhotos() {
       await addPhotoOnPage(element);
     }
   } else {
-    isEndReached.value = true
+    store.isEndReached = true
   }
 
   isLoading.value = false
@@ -36,7 +34,7 @@ async function fetchPhotos() {
 async function addPhotoOnPage(photo: Photo): Promise<void> {
   return new Promise(resolve => {  
     setTimeout(() => {
-      photos.value.push(photo);
+      store.addPhoto(photo)
       resolve();
     }, 50);
   })
@@ -45,12 +43,16 @@ async function addPhotoOnPage(photo: Photo): Promise<void> {
 
 const observer = ref<IntersectionObserver>()
 
-onMounted(() => {
+onMounted(async () => {
+  if (!store.photos) await fetchPhotos()
+
+  // window.scrollTo({ top: store.scrollY, behavior: 'auto' })
+
   const sentinel = document.getElementById('scroll-sentinel')
   if (sentinel) {
     observer.value = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && !isLoading.value && !isEndReached.value) {
-        page.value++
+      if (entries[0].isIntersecting && !isLoading.value && !store.isEndReached) {
+        store.incrementPage()
         fetchPhotos()
       }
     })
@@ -60,10 +62,11 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   observer.value?.disconnect()
+  store.scrollY = window.scrollY
 })
 
 onNuxtReady(() => {
-  fetchPhotos()
+  if (!store.photos) fetchPhotos()
 })
 
 </script>
@@ -72,7 +75,7 @@ onNuxtReady(() => {
   <div class="gallery-wrapper">
     <div class="image-grid">
       <GalleryImage
-        v-for="photo in photos"
+        v-for="photo in store.photos"
         :key="photo.id"
         :image_id="photo.id"
         :src="photo.sizes.small"
