@@ -11,8 +11,8 @@ const content = computed(() => galleryContent[year]?.reports ?? [])
 const chunkedContent = computed(() => {
   const result = []
   const items = content.value.slice().reverse()
-  for (let i = 0; i < items.length; i += 8) {
-    result.push(items.slice(i, i + 8))
+  for (let i = 0; i < items.length; i += 4) {
+    result.push(items.slice(i, i + 4))
   }
   return result
 })
@@ -53,12 +53,20 @@ const chunkedContent = computed(() => {
 .reports-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, 300px);
+  grid-template-rows: repeat(1, 300px);
 }
 h2 {
   margin: 0;
   font-family: 'Vollkorn';
   font-style: italic;
+}
+swiper-container {
+  cursor: grab;
+  border-radius: 30px;
+}
+
+swiper-container:active {
+  cursor: grabbing;
 }
 
 </style>
