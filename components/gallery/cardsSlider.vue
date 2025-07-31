@@ -21,14 +21,14 @@ const chunkedContent = computed(() => {
 <template>
   <div class="cards-slider">
     <h2 v-if="year === new Date().getFullYear()">Recent reports</h2>
-    <h2 v-else>Reports of the {{ year }}</h2>
+    <h2 v-else>{{ year }} reports</h2>
 
     <ClientOnly>
       <swiper-container
-        :slides-per-view="1"
-        :space-between="30"
-        :navigation="true"
-        :pagination="true"
+        :slides-per-view="1.04"
+        :space-between="0"
+        :navigation="false"
+        :pagination="false"
         style="--swiper-navigation-color: var(--text-color-1); --swiper-pagination-color: var(--text-color-1)"
       >
         <swiper-slide v-for="(chunk, i) in chunkedContent" :key="i">
@@ -56,7 +56,9 @@ const chunkedContent = computed(() => {
   grid-template-rows: repeat(2, 300px);
 }
 h2 {
+  margin: 0;
   font-family: 'Vollkorn';
   font-style: italic;
 }
+
 </style>

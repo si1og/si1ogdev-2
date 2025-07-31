@@ -101,7 +101,7 @@ onNuxtReady(() => {
 
 <style scoped>
 .gallery-wrapper {
-  padding: 2rem;
+  padding: 20px 30px;
   max-width: 1200px;
   margin: 0 auto;
 }

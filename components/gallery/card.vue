@@ -37,7 +37,7 @@ defineProps<{
   position: relative;
   display: flex;
   flex-direction: column;
-  margin: 12px;
+  margin: 10px;
   border-radius: 20px;
   border: 1px solid var(--decoration-border-color);
   overflow: hidden;
@@ -61,7 +61,7 @@ defineProps<{
     padding: 10px 20px;
     font-size: 18px;
     font-weight: 650;
-    font-style: italic;
+    /* font-style: italic; */
   }
 }
 
