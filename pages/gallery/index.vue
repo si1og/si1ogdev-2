@@ -72,7 +72,9 @@ onNuxtReady(() => {
 </script>
 
 <template>
+  
   <div class="gallery-wrapper">
+    <GalleryCardsSlider :year="2025"/>
     <div class="image-grid">
       <GalleryImage
         v-for="photo in store.photos"

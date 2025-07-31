@@ -14,7 +14,7 @@ defineProps<{
       <IconUse id="external-link" :width="20" :height="20" />
     </div>
     <NuxtImg
-      :src="`/public/gallery-content/${imageName}.jpg`"
+      :src="`/gallery-content/${imageName}.jpg`"
       :alt="alt || 'Photo'"
       loading="lazy"
       decoding="async"
@@ -33,17 +33,30 @@ defineProps<{
 .gallery-card {
   position: relative;
   display: flex;
+  flex-direction: column;
+  margin: 12px;
   border-radius: 20px;
+  border: 1px solid var(--decoration-border-color);
   overflow: hidden;
   transition: .2s ease;
   box-shadow: 0 0 8px #00000014;
+  background: var(--bg-color-1);
+  text-decoration: none;
   animation: fade-in .2s ease;
   z-index: 0;
-
+  
   &:not(:has(.download:hover)):hover ._blank-indacator,
   &:focus ._blank-indacator {
     transform: translate(0);
     opacity: 1;
+  }
+  
+  h3 {
+    margin: 0;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: 650;
+    font-style: italic;
   }
 }
 
@@ -53,10 +66,13 @@ defineProps<{
 }
 
 .card-img {
+  display: block;
   width: 100%;
   height: 100%;
+  aspect-ratio: 4/3.5;
   object-fit: cover;
-  display: block;
+  border-bottom: 1px solid var(--decoration-border-color);
+  border-radius: 0 0 20px 20px ;
   transition: opacity 0.4s ease, transform 0.4s ease;
   color: transparent;
 }

@@ -17,7 +17,8 @@ export default defineNuxtConfig({
     '@nuxt/fonts',
     '@formkit/auto-animate',
     '@stefanobartoletti/nuxt-social-share',
-    '@pinia/nuxt'
+    '@pinia/nuxt',
+    'nuxt-swiper'
   ],
 
   app: {
