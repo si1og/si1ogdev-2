@@ -13,6 +13,9 @@ defineProps<{
     <div class="_blank-indacator">
       <IconUse id="external-link" :width="20" :height="20" />
     </div>
+    <div v-if="isLimitedAcces" class="locked-indacator">
+      <IconUse id="locked" :width="20" :height="20" />
+    </div>
     <NuxtImg
       :src="`/gallery-content/${imageName}.jpg`"
       :alt="alt || 'Photo'"
@@ -45,13 +48,15 @@ defineProps<{
   animation: fade-in .2s ease;
   z-index: 0;
   
-  &:not(:has(.download:hover)):hover ._blank-indacator,
-  &:focus ._blank-indacator {
+  &:hover :where(._blank-indacator, .locked-indacator),
+  &:focus :where(._blank-indacator, .locked-indacator) {
     transform: translate(0);
     opacity: 1;
   }
   
   h3 {
+    display: inline-flex;
+    gap: 5px;
     margin: 0;
     padding: 10px 20px;
     font-size: 18px;
@@ -129,23 +134,34 @@ defineProps<{
 
 
 <style>
-._blank-indacator {
+._blank-indacator,
+.locked-indacator {
   position: absolute;
-  right: 0;
   top: 0;
   width: 30px;
   height: 30px;
-  border-radius: 0 0 0 10px;
   box-shadow: 0 0 8px #00000014;
   background: var(--bg-color-1);
   opacity: 0;
-  transform: translate(40%, -40%);
   transition: .2s ease;
   svg {
     top: 5px;
     position: absolute;
     stroke: var(--text-color-1);
   }
+}
+
+
+._blank-indacator {
+  right: 0;
+  border-radius: 0 0 0 10px;
+  transform: translate(40%, -40%);
+}
+
+.locked-indacator {
+  left: 0;
+  border-radius: 0 0 10px 0;
+  transform: translate(-40%, -40%);
 }
 
 .download svg {
