@@ -10,7 +10,7 @@ async function getPhotosFromDB(
   const offset = (page - 1) * perPage
 
   let query = 'SELECT * FROM photos'
-  const params: any[] = []
+  const params: string | number[] = []
 
   if (year) {
     query += ' WHERE YEAR(created_at) = ?'

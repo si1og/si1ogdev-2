@@ -48,7 +48,7 @@
     #f6f6f6 100%
   );
   background-size: 1000px 100%;
-  animation: shimmer 4s ease-in-out infinite;
+  animation: shimmer 5s ease-in-out infinite;
 }
 
 html[data-theme="dark"] .animate {

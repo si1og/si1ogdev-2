@@ -52,7 +52,7 @@ export async function refreshPhotoCache(): Promise<void> {
 
   const values = allPhotos.map(photo => [
     photo.id,
-    photo.alt_description,
+    photo.alt_description ? photo.alt_description : 'photo',
     new Date(photo.created_at).toISOString().slice(0, 19).replace('T', ' '),
     photo.width > photo.height ? 'landscape' : 'portrait',
     `${photo.urls.raw}&w=32&h=32&q=10&fit=crop`,
@@ -63,18 +63,26 @@ export async function refreshPhotoCache(): Promise<void> {
     photo.links.download
   ])
 
-  await db.query('DELETE FROM photos')
-
-  if (values.length) {
-    await db.query(
-      `INSERT INTO photos (
-        id, alt_description, created_at, orientation,
-        preview_url, thumb_url, small_url, full_url,
-        blur_hash, download_link
-      ) VALUES ?`,
-      [values]
-    )
-  }
+if (values.length) {
+  await db.query(
+    `INSERT INTO photos (
+      id, alt_description, created_at, orientation,
+      preview_url, thumb_url, small_url, full_url,
+      blur_hash, download_link
+    ) VALUES ?
+     ON DUPLICATE KEY UPDATE
+      alt_description = VALUES(alt_description),
+      created_at = VALUES(created_at),
+      orientation = VALUES(orientation),
+      preview_url = VALUES(preview_url),
+      thumb_url = VALUES(thumb_url),
+      small_url = VALUES(small_url),
+      full_url = VALUES(full_url),
+      blur_hash = VALUES(blur_hash),
+      download_link = VALUES(download_link)`,
+    [values]
+  )
+}
 
   await updateDBCacheMeta()
   console.log(`[Cache] Photo cache refreshed and meta updated at ${new Date().toISOString()}`)
