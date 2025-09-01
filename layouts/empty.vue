@@ -1,16 +1,6 @@
 <template>
   <div class="page">
-    <header>
-      <NuxtLink to="#main" class="skip-nav">
-        Skip to main content
-      </NuxtLink>
-      <div class="split">
-        <IconLogo />
-        <nav class="theme-switch--conteiner">
-          <ThemeSwitcher />
-        </nav>
-      </div>
-    </header>
+    <main-header :is-header-empty="true"/>
     <main class="main" id="main">
       <div />
       <slot />

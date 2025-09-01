@@ -15,7 +15,7 @@ const applyTheme = (value: string) => {
 
   if (value === 'system') {
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    let userTheme = prefersDark ? 'dark' : 'light';
+    const userTheme = prefersDark ? 'dark' : 'light';
     html.dataset.theme = userTheme;
     buttonTheme.value = userTheme;
   } else {
@@ -41,7 +41,7 @@ onMounted(() => {
   <button class="theme-switch">
     <IconUse :id="`theme-${buttonTheme}`" :width="20" :height="20" />
   </button>
-  <div class="theme-switch__popover" id="theme-switch">
+  <div id="theme-switch" class="theme-switch__popover">
     <button 
       v-for="theme in themes" 
       :key="theme.functionTrigger"

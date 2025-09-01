@@ -1,14 +1,19 @@
 <script setup lang="ts">
 import { navbarData } from '../../data'
 
+const { isHeaderEmpty } = defineProps<{
+  isHeaderEmpty?: boolean
+}>()
+
 const route = useRoute()
-function isActive(path: string) {
-  return route.path.startsWith(path)
-}
+
+const isActive = (path: string): boolean => route.path.startsWith(path)
+const isShowNavLinks = (): boolean => !isHeaderEmpty
+
 </script>
 
 <template>
-  <header>
+  <header :class="{ absolute: !isShowNavLinks() }">
     <NuxtLink to="#main" class="skip-nav">
       Skip to main content
     </NuxtLink>
@@ -16,13 +21,13 @@ function isActive(path: string) {
       <IconLogo />
       <nav>
         <ul>
-          <li class="gallery">
+          <li v-if="isShowNavLinks()" class="gallery">
             <NuxtLink to="/gallery" :class="{ underline: isActive(`/${navbarData.gallery.rote}`) }"> {{
               navbarData.gallery.text }}
             </NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/projects" :class="{ underline: isActive(`/${navbarData.projects.rote}`) }"> {{
+            <NuxtLink v-if="isShowNavLinks()" to="/projects" :class="{ underline: isActive(`/${navbarData.projects.rote}`) }"> {{
               navbarData.projects.text }} </NuxtLink>
           </li>
 					<li class="theme-switch--conteiner">
@@ -50,6 +55,10 @@ header {
   background: var(--bg-color-11);
   box-shadow: 0 0 6px #00000011;
   z-index: 10;
+
+  &.absolute {
+    position: absolute;
+  }
 
   .split {
     display: flex;
