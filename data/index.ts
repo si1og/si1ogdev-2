@@ -4,8 +4,8 @@ export const navbarData = {
     rote: 'gallery',
   },
   projects: {
-    text: 'Experience',
-    rote: 'experience',
+    text: 'About',
+    rote: 'about',
   }
 }
 
