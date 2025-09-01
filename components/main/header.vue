@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { navbarData } from '../../data'
+import { useLangStore } from '~/stores/lang';
+
+const langStore = useLangStore()
 
 const { isHeaderEmpty } = defineProps<{
   isHeaderEmpty?: boolean
@@ -23,12 +26,12 @@ const isShowNavLinks = (): boolean => !isHeaderEmpty
         <ul>
           <li v-if="isShowNavLinks()" class="gallery">
             <NuxtLink to="/gallery" :class="{ underline: isActive(`/${navbarData.gallery.rote}`) }"> {{
-              navbarData.gallery.text }}
+              navbarData.gallery.text[langStore.langId] }}
             </NuxtLink>
           </li>
           <li>
             <NuxtLink v-if="isShowNavLinks()" to="/projects" :class="{ underline: isActive(`/${navbarData.projects.rote}`) }"> {{
-              navbarData.projects.text }} </NuxtLink>
+              navbarData.projects.text[langStore.langId] }} </NuxtLink>
           </li>
 					<li class="theme-switch--conteiner">
 						<ThemeSwitcher />

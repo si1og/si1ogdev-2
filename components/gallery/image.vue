@@ -16,9 +16,9 @@ defineProps<{
       <IconUse id="external-link" :width="20" :height="20" />
     </div>
     <NuxtImg
+      :key="image_id"
       :src="src"
       :alt="alt || 'Photo'"
-      :key="image_id"
       loading="lazy"
       decoding="async"
       class="gallery-img animate"

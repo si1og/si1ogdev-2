@@ -1,9 +1,23 @@
 <script setup lang="ts">
 import { socialLinks, licensing } from '../../data'
+import { useLangStore } from '~/stores/lang'
+
+const langStore = useLangStore()
+const currentLangId = ref(0);
 
 defineProps<{
   isGalleryView?: boolean
+  isEmptyLayout?: boolean
 }>()
+
+const langs = [
+  'English',
+  'Русский'
+]
+
+watch(currentLangId, () => {
+  langStore.langId = currentLangId.value
+});
 </script>
 
 <template>
@@ -34,10 +48,14 @@ defineProps<{
             <NuxtLink :to="item.link">{{ item.name }}</NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/sitemap" class="sitemap">
+            <select v-model="currentLangId" class="sitemap">
               <IconUse id="web" :width="20" :height="20" /> 
               Sitemap
-            </NuxtLink>
+
+              <option v-for="id in 2" :key="id" :value="id-1">
+                <span class="option-label">{{ langs[id-1] }}</span>
+              </option>
+            </select>
           </li>
         </ul>
       </div>

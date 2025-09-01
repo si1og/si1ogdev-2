@@ -5,7 +5,7 @@
       <div />
       <slot />
     </main>
-
+    <main-footer :is-empty-layout="true" />
   </div>
 </template>
 

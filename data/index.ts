@@ -1,10 +1,13 @@
+import { header } from "./lang/text"
+
+
 export const navbarData = {
 	gallery: {
-    text: 'Gallery',
+    text: header.links.gallery,
     rote: 'gallery',
   },
   projects: {
-    text: 'About',
+    text: header.links.about,
     rote: 'about',
   }
 }
