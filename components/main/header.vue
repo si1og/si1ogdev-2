@@ -116,18 +116,27 @@ header {
   }
 }
 
-nav>ul {
+nav > ul {
   display: flex;
 	align-items: center;
   gap: 35px;
   list-style: none;
   flex-wrap: wrap;
+  a {
+    position: relative;
+    transition: .2s ease;
+	}
 
-	.gallery {
-		background: linear-gradient(60deg,coral,violet); 
-		background-clip: border-box;
-		-webkit-text-fill-color: transparent;
-		-webkit-background-clip: text;
+  &.gap-80 {
+    gap: 80px;
+  }
+}
+
+.gallery {
+    background: linear-gradient(60deg, coral, violet);
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
 		font-variation-settings: "wght" 550, "ital" 0;
 
 		&:hover {
@@ -146,15 +155,6 @@ nav>ul {
 			}
 	}
 	}
-  a {
-    position: relative;
-    transition: .2s ease;
-	}
-
-  &.gap-80 {
-    gap: 80px;
-  }
-}
 
 .skip-nav {
   display: none;

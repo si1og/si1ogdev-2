@@ -130,13 +130,6 @@ export const seoData = {
   mailAddress: 'hi@s1og.ru',
 }
 
-// export const socialLinks = {
-//   githubLink: 'https://github.com/nurRiyad',
-//   linkedinLink: 'https://www.linkedin.com/in/nur-riyad/',
-//   twitterLink: 'https://twitter.com/qdnvubp',
-//   stackoverflowLink: 'https://stackoverflow.com/users/16781395/nur-riyad',
-// }
-
 export const siteMetaData = [
   {
     name: 'description',
