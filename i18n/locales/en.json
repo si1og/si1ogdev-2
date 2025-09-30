@@ -8,5 +8,25 @@
       "dark": "Dark",
       "system": "System"
     }
+  },
+  "main": {
+    "hero": {
+      "logo": "Ilya Semenov",
+      "post-logo": "Computer programmer and photo enthusiast"
+    },
+    "info": {
+      "label": "Hi there!",
+      "text": "I'm Ilya Semenov, an computer scince student and photo enthusiast at SPbPU. You can see some of my past works over here. Feel free to check them out."
+    },
+    "social": {
+      "label": "Find my photos in",
+      "telegram": "Teleram",
+      "unsplash": "Unsplash",
+      "stats": {
+        "1": "😱 Currently my photos on upspash have",
+        "2": "views and",
+        "3": "downloads!"
+      }
+    }
   }
 }

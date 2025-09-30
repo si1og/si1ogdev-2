@@ -32,14 +32,14 @@ const { data, error, pending } = await useLazyFetch<Stats>('/api/stats', {server
 <template>
   <div class="main-content">
     <div class="main-content__title">
-      <h1>{{ homePage.name }}</h1>
-      <p>{{ homePage.nameSubtitle }}</p>
+      <h1>{{ $t(homePage.nameTextKey) }}</h1>
+      <p>{{ $t(homePage.nameSubtitleTextKey) }}</p>
       <SvgBackgroundGrid class="main-content__grid" />
     </div>
     <div class="description">
       <div class="description__info">
-        <h2>{{ homePage.title }}</h2>
-        <p>{{ homePage.description }}</p>
+        <h2>{{ $t(homePage.titleTextKey) }}</h2>
+        <p>{{ $t(homePage.descriptionTextKey) }}</p>
         <ul class="description__connect" style="margin: 10px 0 0 0;">
           <li v-for="item in homePageSocial" :key="item.name">
             <button v-if="item.link === 'copy-type'" class="copy" @click="copyToClipboard(item.tooltip, item.icon)">
@@ -67,7 +67,7 @@ const { data, error, pending } = await useLazyFetch<Stats>('/api/stats', {server
         </ul>
       </div>
       <div class="description__photo-social">
-        <h2>Find my photos in</h2>
+        <h2>{{ $t(homePage.socialLabelTextKey) }}</h2>
         <div>
           <ul>
             <li v-for="item in findMyPhotosIn" :key="item.name">
@@ -75,7 +75,7 @@ const { data, error, pending } = await useLazyFetch<Stats>('/api/stats', {server
                 <span class="icon-cont">
                   <IconUse :id="item.icon" :width="item.sizes[0]" :height="item.sizes[1]" />
                 </span>
-                {{ item.name }}
+                {{ $t(item.textKey) }}
               </NuxtLink>
             </li>
           </ul>
@@ -83,17 +83,17 @@ const { data, error, pending } = await useLazyFetch<Stats>('/api/stats', {server
       </div>
       <div v-if="!error" class="description__unsplash">
         <p>
-          😱 Currently my photos on upspash have 
+          {{ $t(homePage.socialStats1TextKey) + " " }}
           <span class="views">
             <span v-if="pending && !data?.views" class="skeleton animate">290,000+</span>
             <span v-if="data?.views">{{ convertViews(data.views) }}</span>
           </span> 
-          views and 
+          {{ $t(homePage.socialStats2TextKey) + " " }}
           <span class="downloads">
             <span v-if="pending && !data?.downloads" class="skeleton animate">1,500+</span>
             <span v-if="data?.downloads">{{ convertDownloads(data.downloads) }}</span>
           </span> 
-          downloads!
+          {{ $t(homePage.socialStats3TextKey) }}
         </p>
         <IconUse id="arrow-1" class="arrow" :width="80" :height="80" />
       </div>

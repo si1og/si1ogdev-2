@@ -24,13 +24,13 @@ export const socialLinks = [
     tooltip: 'si1og',
     sizes: [20,20]
   },
-  // {
-  //   name: 'Instagram',
-  //   icon: 'instagram-icon',
-  //   link: 'https://instagram.com/ia.semenov',
-  //   tooltip: 'ia.semenov',
-  //   sizes: [18,18]
-  // },
+  {
+    name: 'Instagram',
+    icon: 'instagram-icon',
+    link: 'https://instagram.com/ia.semenov',
+    tooltip: 'ia.semenov',
+    sizes: [18,18]
+  },
   {
     name: 'Unsplash',
     icon: 'unsplash-icon',
@@ -63,12 +63,14 @@ export const licensing = [
 
 export const findMyPhotosIn = [
   {
+    textKey: "main.social.telegram",
     name: 'Telegram',
     icon: 'telegram',
     link: 'https://t.me/si1og_phograhpy',
     sizes: [25,25]
   },
   {
+    textKey: "main.social.unsplash",
     name: 'Unsplash',
     icon: 'unsplash-icon',
     link: 'https://unsplash.com/@si1og',
@@ -87,11 +89,14 @@ export const footerData = {
 }
 
 export const homePage = {
-  name: 'Ilya Semenov',
-  nameSubtitle: 'Computer programmer and photo enthusiast',
-  title: 'Hi there!',
-  description:
-    'I\'m Ilya Semenov, an computer scince student and photo enthusiast at SPbPU. You can see some of my past works over here. Feel free to check them out. ',
+  nameTextKey: 'main.hero.logo',
+  nameSubtitleTextKey: 'main.hero.post-logo',
+  titleTextKey: 'main.info.label',
+  descriptionTextKey: 'main.info.text',
+  socialLabelTextKey: 'main.social.label',
+  socialStats1TextKey: 'main.social.stats.1',
+  socialStats2TextKey: 'main.social.stats.2',
+  socialStats3TextKey: 'main.social.stats.3'
 }
 
 export const homePageSocial = [
