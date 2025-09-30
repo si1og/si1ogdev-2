@@ -1,0 +1,12 @@
+{
+  "welcome": "Hi there!",
+  "nav": {
+    "gallery": "Галерея",
+    "about": "Обо мне",
+    "themes": {
+      "light": "Светлая",
+      "dark": "Тёмная",
+      "system": "Как в системе"
+    }
+  }
+}

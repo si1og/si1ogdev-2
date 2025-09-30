@@ -18,7 +18,8 @@ export default defineNuxtConfig({
     '@formkit/auto-animate',
     '@stefanobartoletti/nuxt-social-share',
     '@pinia/nuxt',
-    'nuxt-swiper'
+    'nuxt-swiper',
+    '@nuxtjs/i18n'
   ],
 
   app: {
@@ -28,11 +29,11 @@ export default defineNuxtConfig({
       title: seoData.title,
       titleTemplate: `%s - ${seoData.title}`,
     },
-    // Folder with pages
-    pageTransition: { name: 'page', mode: 'out-in' },
-    // Folder with layouts
-    layoutTransition: { name: 'layout', mode: 'out-in' },
+    pageTransition:  { name: 'page',   mode: 'out-in' },
+    layoutTransition:{ name: 'layout', mode: 'out-in' }
   },
+
+  css: ['~/assets/css/page-transitions.css'],
 
   sitemap: {
     strictNuxtContentPaths: true,
@@ -75,5 +76,12 @@ export default defineNuxtConfig({
 
   image: {
     domains: ['images.unsplash.com']
+  },
+    i18n: {
+    locales: [
+      { code: 'en', name: 'English', file: 'en.json' },
+      { code: 'ru', name: 'Russian', file: 'ru.json' }
+    ],
+    defaultLocale: 'en',
   }
 })

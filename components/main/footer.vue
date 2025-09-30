@@ -1,23 +1,14 @@
 <script setup lang="ts">
 import { socialLinks, licensing } from '../../data'
-import { useLangStore } from '~/stores/lang'
-
-const langStore = useLangStore()
-const currentLangId = ref(0);
 
 defineProps<{
   isGalleryView?: boolean
   isEmptyLayout?: boolean
 }>()
 
-const langs = [
-  'English',
-  'Русский'
-]
 
-watch(currentLangId, () => {
-  langStore.langId = currentLangId.value
-});
+const { locales, setLocale } = useI18n()
+
 </script>
 
 <template>
@@ -48,14 +39,12 @@ watch(currentLangId, () => {
             <NuxtLink :to="item.link">{{ item.name }}</NuxtLink>
           </li>
           <li>
-            <select v-model="currentLangId" class="sitemap">
-              <IconUse id="web" :width="20" :height="20" /> 
-              Sitemap
-
-              <option v-for="id in 2" :key="id" :value="id-1">
-                <span class="option-label">{{ langs[id-1] }}</span>
-              </option>
-            </select>
+            <div>
+              <button v-for="locale in locales" :key="locale.code" @click="setLocale(locale.code)">
+                {{ locale.name }}
+              </button>
+              <span>{{ $t('welcome') }}</span>
+            </div>
           </li>
         </ul>
       </div>

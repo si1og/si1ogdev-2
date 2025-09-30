@@ -35,6 +35,8 @@ onMounted(() => {
     }
   });
 });
+
+useI18n()
 </script>
 
 <template>
@@ -49,7 +51,7 @@ onMounted(() => {
       @click="setTheme(theme.functionTrigger)"
     >
       <IconUse :id="theme.iconId" :width="20" :height="20" />
-      {{ theme.name }}
+      {{ $t(theme.textKey) }}
     </button>
   </div>
 </template>
@@ -126,6 +128,7 @@ onMounted(() => {
   cursor: pointer;
   border-radius: 0.5rem;
   transition: background 0.2s ease;
+  text-align: left;
   svg {
     fill: var(--text-color-1)
   }

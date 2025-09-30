@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import { navbarData } from '../../data'
-import { useLangStore } from '~/stores/lang';
-
-const langStore = useLangStore()
 
 const { isHeaderEmpty } = defineProps<{
   isHeaderEmpty?: boolean
@@ -12,6 +9,8 @@ const route = useRoute()
 
 const isActive = (path: string): boolean => route.path.startsWith(path)
 const isShowNavLinks = (): boolean => !isHeaderEmpty
+
+useI18n()
 
 </script>
 
@@ -25,13 +24,14 @@ const isShowNavLinks = (): boolean => !isHeaderEmpty
       <nav>
         <ul>
           <li v-if="isShowNavLinks()" class="gallery">
-            <NuxtLink to="/gallery" :class="{ underline: isActive(`/${navbarData.gallery.rote}`) }"> {{
-              navbarData.gallery.text[langStore.langId] }}
+            <NuxtLink to="/gallery" :class="{ underline: isActive(`/${navbarData.gallery.rote}`) }"> 
+              {{ $t(navbarData.gallery.textKey) }}
             </NuxtLink>
           </li>
           <li>
-            <NuxtLink v-if="isShowNavLinks()" to="/projects" :class="{ underline: isActive(`/${navbarData.projects.rote}`) }"> {{
-              navbarData.projects.text[langStore.langId] }} </NuxtLink>
+            <NuxtLink v-if="isShowNavLinks()" to="/projects" :class="{ underline: isActive(`/${navbarData.about.rote}`) }">
+              {{ $t(navbarData.about.textKey) }} 
+            </NuxtLink>
           </li>
 					<li class="theme-switch--conteiner">
 						<ThemeSwitcher />

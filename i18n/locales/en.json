@@ -1,0 +1,12 @@
+{
+  "welcome": "Hi there!",
+  "nav": {
+    "gallery": "Gallery",
+    "about": "About",
+    "themes": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    }
+  }
+}
